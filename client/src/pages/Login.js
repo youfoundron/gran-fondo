@@ -1,16 +1,16 @@
 import React from 'react'
-import { Switch, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { actionCreators } from '../store/actions'
 
-const Login = ({ loggedIn, loginUser, _loginUser }) => (
+const Login = ({ loggedIn, loginUser }) => (
   loggedIn
     ? <Redirect to='/' />
     : (
       <div>
         <h1>Login</h1>
-        <button onClick={_loginUser}>Login to Strava</button>
+        <button onClick={loginUser}>Login to Strava</button>
       </div>
     )
 )

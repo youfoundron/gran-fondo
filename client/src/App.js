@@ -10,10 +10,12 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <Switch>
-          <Route path='/login' exact={true} component={Login} />
-          <PrivateRoute path='/' exact={true} component={Home} />
-        </Switch>
+        <Layout>
+          <Switch>
+            <Route path='/login' exact={true} component={Login} />
+            <PrivateRoute path='/' exact={true} component={Home} />
+          </Switch>
+        </Layout>
       </Router>
     );
   }
