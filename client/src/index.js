@@ -11,7 +11,7 @@ import StravaChallengeHub from './contracts/StravaChallengeHub.json';
 
 import StringStore from './contracts/StringStore.json';
 
-const {REACT_APP_INFURA_ENDPOINT} = process.env
+const {REACT_APP_INFURA_ENDPOINT, REACT_APP_CONTRACT_ADDRESS, REACT_APP_FROM_ADDRESS} = process.env
 
 console.log('***', { StringStore })
 
@@ -24,9 +24,9 @@ const drizzleOptions = { contracts: [{
   contractName: 'StringStore',
   web3Contract: new web3.eth.Contract(
     StringStore.abi,
-    '0x69a6cc5e4f9f0e9b19fe5dcdc2ece0e38dc133a7',
+    REACT_APP_CONTRACT_ADDRESS,
     {
-      from: '0x1a10153A7c8De1bF12006291fe0169Dfe050a135'
+      from: REACT_APP_FROM_ADDRESS
     }
   )
 }] };
