@@ -1,3 +1,41 @@
+@font-face {
+  font-family: "Metropolis Extra Light";
+  src: url('./assets/fonts/Metropolis-ExtraLight.ttf')
+}
+
+@font-face {
+  font-family: "Metropolis Thin";
+  src: url('./assets/fonts/Metropolis-Thin.ttf')
+}
+
+@font-face {
+  font-family: "Metropolis Regular";
+  src: url('./assets/fonts/Metropolis-Regular.ttf')
+}
+
+@font-face {
+  font-family: "Metropolis Medium";
+  src: url('./assets/fonts/Metropolis-Medium.ttf')
+}
+
+@font-face {
+  font-family: "Metropolis Semi Bold";
+  src: url('./assets/fonts/Metropolis-SemiBold.ttf')
+}
+
+@font-face {
+  font-family: "Metropolis Bold";
+  src: url('./assets/fonts/Metropolis-Bold.ttf')
+}
+
+
+body, html {
+  font-size: 15px;
+  /* letter-spacing: -0.1px; */
+  font-family: 'Metropolis Regular';
+  -webkit-font-smoothing: antialiased;
+}
+
 .App {
   text-align: center;
 }
