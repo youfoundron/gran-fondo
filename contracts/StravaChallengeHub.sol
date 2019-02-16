@@ -1,9 +1,7 @@
-pragma solidity ^0.5.0;
-import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+pragma solidity 0.4.24;
 
 contract StravaChallengeHub {
     // Libraries
-    using SafeMath for uint;
 
     // Enums
     // https://solidity.readthedocs.io/en/v0.5.4/types.html?highlight=enum%20argument#enums
@@ -124,7 +122,7 @@ contract StravaChallengeHub {
     function getTotalChallengeFunds(ChallengeType _challengeType, uint _challengeId) public view returns (uint) {
         uint entryFee = getChallengeEntryFee(_challengeType, _challengeId);
         uint numAthletes = getNumAthletes(_challengeType, _challengeId);
-        return entryFee.mul(numAthletes);
+        return entryFee * numAthletes;
     }
     
     // Destructive functions
@@ -247,12 +245,12 @@ contract StravaChallengeHub {
         uint[] memory successfulAthleteIds = getSuccessfulAthleteIds(_challengeType, _challengeId);
         uint numAthletesSucceeded = successfulAthleteIds.length;
         uint totalChallengeFunds = getTotalChallengeFunds(_challengeType, _challengeId);
-        uint rewardValue = totalChallengeFunds.div(numAthletesSucceeded);
+        uint rewardValue = totalChallengeFunds / numAthletesSucceeded;
         
         for (uint index = 0; index < numAthletesSucceeded; index++) {
             uint _athleteId = successfulAthleteIds[index];
             address _athleteAddress = getAthleteAddress(_challengeType, _challengeId, _athleteId);
-            address payable recipient = address(uint160(_athleteAddress));
+            address recipient = address(uint160(_athleteAddress));
             recipient.transfer(rewardValue);
         }
         
