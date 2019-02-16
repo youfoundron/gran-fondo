@@ -28,6 +28,9 @@
   src: url('./assets/fonts/Metropolis-Bold.ttf')
 }
 
+/* * {
+  border: 1px solid red;
+} */
 
 body, html {
   font-size: 15px;

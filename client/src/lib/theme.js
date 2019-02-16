@@ -6,6 +6,7 @@ export default {
     darkYellow: '#F7E429',
     deepBlue: '#2F3740',
     DarkBlue: '#24292E',
+    grayDarker: '#616161',
     grayDarkest: '#2F3740',
     grayLightest: '#B4B4B4',
     Bike: '#7F53B1',
@@ -21,8 +22,15 @@ export default {
     large: '0 0 24px rgba(0, 0, 0, .125)'
   },
   uiGlobal: {
+    appLayoutMargin: 40,
     appBackground: '#F7F7F7',
     borderRadius: 7,
     boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)'
   }
+  // buttons: {
+  //   rounded: {
+  //     color: '#fff',
+  //     backgroundColor: deepBlue,
+  //   }
+  // }
 }

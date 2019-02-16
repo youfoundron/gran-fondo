@@ -21,24 +21,31 @@ const ChallengeCard = ({
   title,
   exerciseType,
   isHorizontal,
-  fee
+  fee,
+  ...props
 }) => (
-  <Card>
-    <Map src={image || map} alt={image} />
-    <Box p={[20]}>
-      <Label color={theme.colors.grayLightest}>{challengeType} Challenge</Label>
-      <Header my={[3]}>{title}</Header>
-      <Flex justifyContent='space-between'>
-        <Box>
-          <Badge text={exerciseType} color={theme.colors[exerciseType]} />
-        </Box>
-        <Box>
-          <Fee fee={50} fontSize={[5]} />
-        </Box>
-      </Flex>
+  <Card {...props}>
+    <Flex flexDirection={isHorizontal ? 'row' : 'column'}>
+      <Box>
+        <Map src={image || map} alt={image} />
+      </Box>
+      <Box p={[20]}>
+        <Label color={theme.colors.grayLightest}>
+          {challengeType} Challenge
+        </Label>
+        <Header my={[3]}>{title}</Header>
+        <Flex justifyContent='space-between'>
+          <Box>
+            <Badge text={exerciseType} color={theme.colors[exerciseType]} />
+          </Box>
+          <Box>
+            <Fee fee={50} fontSize={[5]} />
+          </Box>
+        </Flex>
 
-      {/* <p>{isHorizontal ? 'Horizontal' : 'Vertical'}</p> */}
-    </Box>
+        {/* <p>{isHorizontal ? 'Horizontal' : 'Vertical'}</p> */}
+      </Box>
+    </Flex>
   </Card>
 )
 
