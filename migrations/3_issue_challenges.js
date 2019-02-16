@@ -3,9 +3,8 @@ const m = require('moment');
 
 const MILE = 5280 // in feet
 const ACTIVITY_TYPES = { RIDE: 0, RUN: 1, SWIM: 2 }
-const CHALLENGE_TYPES = { SEGMENT: 0, DISTANCE: 1 }
 
-module.exports = async function(deployer, ...args) {
+module.exports = async function(deployer) {
   try {
     const web3 = StravaChallengeHub.web3;
     const contract = await StravaChallengeHub.deployed();
@@ -19,7 +18,7 @@ module.exports = async function(deployer, ...args) {
       _activityType: ACTIVITY_TYPES.RIDE
     }
     const issueSegmentChallengeTx = await contract.issueSegmentChallenge(...Object.values(segmentChallengeParams))
-    const segmentChallengeId = issueSegmentChallengeTx.receipt.logs[0]._challengeId.toNumber()
+    const segmentChallengeId = issueSegmentChallengeTx.receipt.logs[0].args._challengeId.toNumber()
     console.log(`Issued Segment Challenge with id ${segmentChallengeId}`)
     
     // Run 50 miles in the next 30 days
@@ -30,7 +29,7 @@ module.exports = async function(deployer, ...args) {
       _activityType: ACTIVITY_TYPES.RUN
     }
     const issueDistanceChallengeTx = await contract.issueDistanceChallenge(...Object.values(distanceChallengeParams))
-    const distanceChallengeId = issueDistanceChallengeTx.receipt.logs[0]._challengeId.toNumber()
+    const distanceChallengeId = issueDistanceChallengeTx.receipt.logs[0].args._challengeId.toNumber()
     console.log(`Issued Distance Challenge with id ${distanceChallengeId}`)
 
   } catch (err) {
