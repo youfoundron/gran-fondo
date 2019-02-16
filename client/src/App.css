@@ -32,14 +32,21 @@
   border: 1px solid red;
 } */
 
+#root {
+  height: 100%;
+}
+
 body, html {
+  height: 100%;
   font-size: 15px;
   /* letter-spacing: -0.1px; */
   font-family: 'Metropolis Regular';
   -webkit-font-smoothing: antialiased;
+  background-color: #F7F7F7;
 }
 
 .App {
+  height: 100%;
   text-align: center;
 }
 

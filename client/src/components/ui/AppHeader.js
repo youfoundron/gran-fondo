@@ -56,10 +56,12 @@ const AppHeader = ({ theme, loggedIn }) => (
             }}
           />
         </Box>
-        <Flex ml={3} alignItems='center' justifyContent='center'>
-          <MenuLink to='/' text='Challenges' />
-          <MenuLink to='/user' text='User' />
-        </Flex>
+        {loggedIn && (
+          <Flex ml={3} alignItems='center' justifyContent='center'>
+            <MenuLink to='/' text='Challenges' />
+            <MenuLink to='/user' text='User' />
+          </Flex>
+        )}
       </Flex>
       {loggedIn && (
         <Box>

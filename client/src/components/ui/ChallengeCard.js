@@ -26,10 +26,21 @@ const ChallengeCard = ({
 }) => (
   <Card {...props}>
     <Flex flexDirection={isHorizontal ? 'row' : 'column'}>
-      <Box>
-        <Map src={image || map} alt={image} />
-      </Box>
-      <Box p={[20]}>
+      <Box
+        style={{
+          borderRadius: isHorizontal
+            ? `${theme.uiGlobal.borderRadius}px 0 0 ${
+              theme.uiGlobal.borderRadius
+            }px`
+            : `${theme.uiGlobal.borderRadius}px ${
+              theme.uiGlobal.borderRadius
+            }px 0 0 `,
+          width: '200px',
+          backgroundImage: `url(${image || map})`,
+          backgroundSize: 'cover'
+        }}
+      />
+      <Box p={[20]} flex={1}>
         <Label color={theme.colors.grayLightest}>
           {challengeType} Challenge
         </Label>
@@ -42,8 +53,6 @@ const ChallengeCard = ({
             <Fee fee={50} fontSize={[5]} />
           </Box>
         </Flex>
-
-        {/* <p>{isHorizontal ? 'Horizontal' : 'Vertical'}</p> */}
       </Box>
     </Flex>
   </Card>

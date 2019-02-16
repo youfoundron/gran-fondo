@@ -1,15 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { DrizzleProvider } from 'drizzle-react';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+import { DrizzleProvider } from 'drizzle-react'
 
-import './index.css';
-import App from './App';
+import './index.css'
+import App from './App'
 import initializeStore from './store'
-import * as serviceWorker from './serviceWorker';
-import StravaChallengeHub from './contracts/StravaChallengeHub.json';
+import * as serviceWorker from './serviceWorker'
+import StravaChallengeHub from './contracts/StravaChallengeHub.json'
 
-const drizzleOptions = { contracts: [StravaChallengeHub] };
+const drizzleOptions = { contracts: [StravaChallengeHub] }
 const store = initializeStore()
 
 ReactDOM.render(
@@ -19,9 +19,9 @@ ReactDOM.render(
     </Provider>
   </DrizzleProvider>,
   document.getElementById('root')
-);
+)
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.unregister()

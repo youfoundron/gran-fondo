@@ -1,13 +1,12 @@
 import React from 'react'
+import { withTheme } from 'styled-components'
 import AppHeader from '../components/ui/AppHeader'
 
-const ScreenWrapper = ({ children }) => {
-  return (
-    <div>
-      <AppHeader />
-      {children}
-    </div>
-  )
-}
+const ScreenWrapper = ({ theme, children }) => (
+  <div flexDirection='column' style={{ height: '100%' }}>
+    <AppHeader />
+    <div style={{ flex: 1 }}>{children}</div>
+  </div>
+)
 
-export default ScreenWrapper
+export default withTheme(ScreenWrapper)

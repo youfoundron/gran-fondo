@@ -13,6 +13,7 @@ export default {
     Run: '#6EBE85',
     Swim: '#5D82B9'
   },
+  space: [0, 4, 8, 12, 16, 20, 36, 64, 128],
   fonts: {
     sans: 'system-ui, sans-serif',
     mono: 'Menlo, monospace'
@@ -25,7 +26,7 @@ export default {
     appLayoutMargin: 40,
     appBackground: '#F7F7F7',
     borderRadius: 7,
-    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.1)'
+    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.05)'
   }
   // buttons: {
   //   rounded: {
