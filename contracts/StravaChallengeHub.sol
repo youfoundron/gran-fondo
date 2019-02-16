@@ -29,25 +29,32 @@ contract StravaChallengeHub {
     uint public numSegmentChallenges = 0;
     mapping (uint => SegmentChallenge) public segmentChallengesById;
     mapping (uint => string[]) public athletesBySegmentChallengeId;
+    mapping (uint => mapping(uint => bool)) athletesRegisteredBySegmentChallengeId;
 
     uint public numDistanceChallenges = 0;
     mapping (uint => DistanceChallenge) public distanceChallengesById;
     mapping (uint => string[]) public athletesByDistanceChallengeId;
+    mapping (uint => mapping(uint => bool)) athletesRegisteredByDistanceChallengeId;
     
     // Events
     event ChallengeIssued (ChallengeType _challengeType, uint _challengeId);
-    event ChallengeJoined (ChallengeType _challengeType, uint _challengeId, string _athleteId);
+    event ChallengeJoined (ChallengeType _challengeType, uint _challengeId, uint _athleteId);
     
-    // View functions
+    // Pure / View functions
     // ------------------------------------------------------
+    function isSegmentChallenge(ChallengeType _challengeType) public pure returns (bool) {
+        return _challengeType == ChallengeType.Segment;
+    }
+    
+    function isDistanceChallenge(ChallengeType _challengeType) public pure returns (bool) {
+        return _challengeType == ChallengeType.Distance;
+    }
+
     function getChallengeExpireTime(ChallengeType _challengeType, uint _challengeId) public view returns (uint) {
-        uint expireTime;
-        if (_challengeType == ChallengeType.Segment) {
-            expireTime = segmentChallengesById[_challengeId].expireTime;
-        } else if (_challengeType == ChallengeType.Distance) {
-            expireTime = distanceChallengesById[_challengeId].expireTime;
-        }
-        return expireTime;
+        if (isSegmentChallenge(_challengeType))
+            return segmentChallengesById[_challengeId].expireTime;
+        if (isDistanceChallenge(_challengeType))
+            return distanceChallengesById[_challengeId].expireTime;
     }
     
     function isChallengeActive(ChallengeType _challengeType, uint _challengeId) public view returns (bool) {
@@ -55,24 +62,25 @@ contract StravaChallengeHub {
         return expireTime > now;
     }
     
+    function isAthleteRegistered(ChallengeType _challengeType, uint _challengeId, uint _athleteId) public view returns (bool) {
+        if (isSegmentChallenge(_challengeType))
+            return athletesRegisteredBySegmentChallengeId[_challengeId][_athleteId];
+        if (isDistanceChallenge(_challengeType))
+            return athletesRegisteredByDistanceChallengeId[_challengeId][_athleteId];
+    }
+    
     function getChallengeEntryFee(ChallengeType _challengeType, uint _challengeId) public view returns (uint) {
-        uint entryFee;
-        if (_challengeType == ChallengeType.Segment) {
-            entryFee = segmentChallengesById[_challengeId].entryFee;
-        } else if (_challengeType == ChallengeType.Distance) {
-            entryFee = distanceChallengesById[_challengeId].entryFee;
-        }
-        return entryFee;
+        if (isSegmentChallenge(_challengeType))
+            return segmentChallengesById[_challengeId].entryFee;
+        if (isDistanceChallenge(_challengeType))
+            return distanceChallengesById[_challengeId].entryFee;
     }
     
     function getNumChallengeAthletes(ChallengeType _challengeType, uint _challengeId) public view returns (uint) {
-        uint numAthletes;
-        if (_challengeType == ChallengeType.Segment) {
-            numAthletes = athletesBySegmentChallengeId[_challengeId].length;
-        } else if (_challengeType == ChallengeType.Distance) {
-            numAthletes = athletesByDistanceChallengeId[_challengeId].length;
-        }
-        return numAthletes;
+        if (isSegmentChallenge(_challengeType))
+            return athletesBySegmentChallengeId[_challengeId].length;
+        if (isDistanceChallenge(_challengeType))
+            return athletesByDistanceChallengeId[_challengeId].length;
     }
     
     function totalChallengeFunds(ChallengeType _challengeType, uint _challengeId) public view returns (uint) {
@@ -139,19 +147,36 @@ contract StravaChallengeHub {
         return _challengeId;
     }
     
+
     function joinChallenge (
         ChallengeType _challengeType,
         uint _challengeId,
         uint _athleteId
     ) public payable returns (bool) {
+        // make sure athlete hasn't joined the challenge already
+        require(!isAthleteRegistered(_challengeType, _challengeId, _athleteId), "Athlete is already registered");
+
+        // make sure sender is paying their full entry fee
+        uint entryFee = getChallengeEntryFee(_challengeType, _challengeId);
+        require(msg.value >= entryFee, "Entry fee (ether value) is insufficient");
+    
+        // flag athelete as registered for challenge
+        if (isSegmentChallenge(_challengeType))
+            athletesRegisteredBySegmentChallengeId[_challengeId][_athleteId] = true;
+        if (isDistanceChallenge(_challengeType))
+            athletesRegisteredByDistanceChallengeId[_challengeId][_athleteId] = true;
+
+        // Log ChallengeJoined event
+        emit ChallengeJoined(_challengeType, _challengeId, _athleteId);
         
+        return true;
     }
     
     function settleChallenge (
         ChallengeType _challengeType,
         uint _challengeId
     ) public returns (bool) {
-        
+
     }
     
 }
