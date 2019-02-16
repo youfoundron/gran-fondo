@@ -6,6 +6,8 @@
   "author": "Ron Gierlach <rongierlach@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "openzeppelin-solidity": "^2.1.2"
+    "ganache-cli": "^6.3.0",
+    "openzeppelin-solidity": "^2.1.2",
+    "truffle": "^5.0.4"
   }
 }
