@@ -2,7 +2,6 @@ pragma solidity 0.4.24;
 
 contract StravaChallengeHub {
     // Libraries
-    // using SafeMath for uint;
 
     // Enums
     // https://solidity.readthedocs.io/en/v0.5.4/types.html?highlight=enum%20argument#enums
