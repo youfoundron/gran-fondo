@@ -99,6 +99,10 @@ contract StravaChallengeHub {
         uint expireTime = getChallengeExpireTime(_challengeType, _challengeId);
         return now > expireTime;
     }
+
+    function getAthleteIds(ChallengeType _challengeType, uint _challengeId) public view returns (uint[] memory) {
+        return _getChallengeMetaData(_challengeType).athleteIds[_challengeId];
+    }
     
     function getSuccessfulAthleteIds(ChallengeType _challengeType, uint _challengeId) public view returns (uint[] memory) {
         uint[] memory successfulAthleteIds;
