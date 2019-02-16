@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import ContractState from './components/ContractState.js'
 import './App.css';
 
 class App extends Component {
@@ -7,8 +8,6 @@ class App extends Component {
 
   componentDidMount() {
     const { drizzle } = this.props;
-
-    console.log('*** DRIZZLE IS DRIZZLING ***')
 
     // subscribe to changes in the store
     this.unsubscribe = drizzle.store.subscribe(() => {
@@ -23,23 +22,21 @@ class App extends Component {
     });
   }
 
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
   render() {
+    if (this.state.loading) {
+      return "Loading Drizzle"
+    }
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <ContractState 
+          drizzle={this.props.drizzle}
+          drizzleState={this.state.drizzleState}
+        />
       </div>
     );
   }
