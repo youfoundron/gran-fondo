@@ -1,0 +1,13 @@
+{
+  "name": "strava-worker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node ./index.js"
+  },
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
