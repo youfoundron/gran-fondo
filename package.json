@@ -1,0 +1,11 @@
+{
+  "name": "gran-fondo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:tokensoft/gran-fondo.git",
+  "author": "Ron Gierlach <rongierlach@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "openzeppelin-solidity": "^2.1.2"
+  }
+}
