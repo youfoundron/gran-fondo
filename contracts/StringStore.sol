@@ -1,4 +1,4 @@
-pragma solidity ^0.5.0;
+pragma solidity ^0.4.24;
 
 // Locally
 import "chainlink/solidity/contracts/Chainlinked.sol";

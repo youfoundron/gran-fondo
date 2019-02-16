@@ -8,7 +8,6 @@
   "dependencies": {
     "chainlink": "github:smartcontractkit/chainlink",
     "ganache-cli": "^6.3.0",
-    "openzeppelin-solidity": "^2.1.2",
     "truffle": "^5.0.4"
   }
 }
