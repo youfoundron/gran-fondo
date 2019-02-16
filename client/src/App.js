@@ -1,43 +1,20 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import ContractState from './components/ContractState.js'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Layout from './components/Layout';
+import PrivateRoute from './components/PrivateRoute';
+import Home from './pages/Home';
+import Login from './pages/Login';
 import './App.css';
 
 class App extends Component {
-  state = { loading: true, drizzleState: null }
-
-  componentDidMount() {
-    const { drizzle } = this.props;
-
-    // subscribe to changes in the store
-    this.unsubscribe = drizzle.store.subscribe(() => {
-  
-      // every time the store updates, grab the state from drizzle
-      const drizzleState = drizzle.store.getState();
-  
-      // check to see if it's ready, if so, update local component state
-      if (drizzleState.drizzleStatus.initialized) {
-        this.setState({ loading: false, drizzleState });
-      }
-    });
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe();
-  }
-
   render() {
-    if (this.state.loading) {
-      return "Loading Drizzle"
-    }
-
     return (
-      <div className="App">
-        <ContractState 
-          drizzle={this.props.drizzle}
-          drizzleState={this.state.drizzleState}
-        />
-      </div>
+      <Router>
+        <Switch>
+          <Route path='/login' exact={true} component={Login} />
+          <PrivateRoute path='/' exact={true} component={Home} />
+        </Switch>
+      </Router>
     );
   }
 }

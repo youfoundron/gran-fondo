@@ -1,17 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { DrizzleProvider } from 'drizzle-react';
+
 import './index.css';
 import App from './App';
+import initializeStore from './store'
 import * as serviceWorker from './serviceWorker';
-import { Drizzle, generateStore } from "drizzle";
-import StringStore from "./contracts/StringStore.json";
+import StravaChallengeHub from './contracts/StravaChallengeHub.json';
 
-const drizzleOptions = { contracts: [StringStore] };
+const drizzleOptions = { contracts: [StravaChallengeHub] };
+const store = initializeStore()
 
-const drizzleStore = generateStore(drizzleOptions);
-const drizzle = new Drizzle(drizzleOptions, drizzleStore);
-
-ReactDOM.render(<App drizzle={drizzle} />, document.getElementById('root'));
+ReactDOM.render(
+  <DrizzleProvider options={drizzleOptions}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </DrizzleProvider>,
+  document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
