@@ -1,5 +1,5 @@
 const StravaChallengeHub = artifacts.require("StravaChallengeHub");
 
-module.exports = function(deployer) {
-  deployer.deploy(StravaChallengeHub);
+module.exports = async function(deployer) {
+  await deployer.deploy(StravaChallengeHub);
 };
