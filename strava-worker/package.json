@@ -5,9 +5,10 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node ./index.js"
+    "start": "source ./.env && node ./index.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "express": "^4.16.4"
   }
 }
