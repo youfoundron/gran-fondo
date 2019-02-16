@@ -1,9 +1,12 @@
 import React from 'react'
+import { ThemeProvider } from 'styled-components'
+
+import theme from '../lib/theme'
 
 const Layout = ({ children }) => (
-  <div>
+  <ThemeProvider theme={theme}>
     { children }
-  </div>
+  </ThemeProvider>
 )
 
 export default Layout
