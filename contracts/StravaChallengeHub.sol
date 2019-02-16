@@ -24,29 +24,55 @@ contract StravaChallengeHub {
         uint distance;              // distance to complete the challenge (feet)
         ActivityType activityType;  // ride / run / swim (as uint)
     }
-    
-    // Storage vars
-    uint public numSegmentChallenges = 0;
-    mapping (uint => SegmentChallenge) public segmentChallengesById;
-    mapping (uint => bool) public segmentChallengesSettledById;
-    mapping (uint => uint[]) public athletesBySegmentChallengeId;
-    mapping (uint => mapping(uint => bool)) athletesRegisteredBySegmentChallengeId;
-    mapping (uint => mapping(uint => bool)) athletesSucceededBySegmentChallengeId;
+    struct ChallengeMetaData {
+        uint numChallenges;
+        mapping (uint => bool) settled;
+        mapping (uint => uint[]) athleteIds;
+        mapping (uint => mapping(uint => bool)) athleteSucceeded;
+        mapping (uint => mapping(uint => address)) athleteAddress;
+    }
 
-    uint public numDistanceChallenges = 0;
+    // Storage vars
+    mapping (uint => ChallengeMetaData) public challengeManager;
+    mapping (uint => SegmentChallenge) public segmentChallengesById;
     mapping (uint => DistanceChallenge) public distanceChallengesById;
-    mapping (uint => bool) public distanceChallengesSettledById;
-    mapping (uint => uint[]) public athletesByDistanceChallengeId;
-    mapping (uint => mapping(uint => bool)) athletesRegisteredByDistanceChallengeId;
-    mapping (uint => mapping(uint => bool)) athletesSucceededByDistanceChallengeId;
-    
+
     // Events
     event ChallengeIssued (ChallengeType _challengeType, uint _challengeId);
-    event ChallengeJoined (ChallengeType _challengeType, uint _challengeId, uint _athleteId);
+    event ChallengeJoined (ChallengeType _challengeType, uint _challengeId, uint _athleteId, address _athleteAddress);
     event ChallengeSettled (ChallengeType _challengeType, uint _challengeId);
-    
+    event AthleteSucceeded (ChallengeType _challengeType, uint _challengeId, uint _athleteId);
+
     // Pure / View functions
     // ------------------------------------------------------
+    function _getChallengeMetaData(ChallengeType _challengeType) internal view returns (ChallengeMetaData storage) {
+        return challengeManager[uint(_challengeType)];
+    }
+    
+    function isChallengeSettled(ChallengeType _challengeType, uint _challengeId) public view returns (bool) {
+        return _getChallengeMetaData(_challengeType).settled[_challengeId];
+    }
+    
+    function isAthleteRegistered(ChallengeType _challengeType, uint _challengeId, uint _athleteId) public view returns (bool) {
+        return _getChallengeMetaData(_challengeType).athleteAddress[_challengeId][_athleteId] != address(0x0);
+    }
+
+    function isAthleteSuccessful(ChallengeType _challengeType, uint _challengeId, uint _athleteId) public view returns (bool) {
+        return _getChallengeMetaData(_challengeType).athleteSucceeded[_challengeId][_athleteId];
+    }
+    
+    function getNumAthletes(ChallengeType _challengeType, uint _challengeId) public view returns (uint) {
+        return _getChallengeMetaData(_challengeType).athleteIds[_challengeId].length;
+    }
+    
+    function getAthleteIdAtIndex(ChallengeType _challengeType, uint _challengeId, uint index) public view returns (uint) {
+        return _getChallengeMetaData(_challengeType).athleteIds[_challengeId][index];
+    }
+    
+    function getAthleteAddress(ChallengeType _challengeType, uint _challengeId, uint _athleteId) public view returns (address paybale) {
+        return _getChallengeMetaData(_challengeType).athleteAddress[_challengeId][_athleteId];
+    }
+
     function isSegmentChallenge(ChallengeType _challengeType) public pure returns (bool) {
         return _challengeType == ChallengeType.Segment;
     }
@@ -62,32 +88,6 @@ contract StravaChallengeHub {
             return distanceChallengesById[_challengeId].expireTime;
     }
     
-    function isChallengeExpired(ChallengeType _challengeType, uint _challengeId) public view returns (bool) {
-        uint expireTime = getChallengeExpireTime(_challengeType, _challengeId);
-        return now > expireTime;
-    }
-    
-    function isChallengeSettled(ChallengeType _challengeType, uint _challengeId) public view returns (bool) {
-        if (isSegmentChallenge(_challengeType))
-            return segmentChallengesSettledById[_challengeId];
-        if (isDistanceChallenge(_challengeType))
-            return distanceChallengesSettledById[_challengeId];
-    }
-    
-    function isAthleteRegistered(ChallengeType _challengeType, uint _challengeId, uint _athleteId) public view returns (bool) {
-        if (isSegmentChallenge(_challengeType))
-            return athletesRegisteredBySegmentChallengeId[_challengeId][_athleteId];
-        if (isDistanceChallenge(_challengeType))
-            return athletesRegisteredByDistanceChallengeId[_challengeId][_athleteId];
-    }
-    
-    function isAthleteSucceeded(ChallengeType _challengeType, uint _challengeId, uint _athleteId) public view returns (bool) {
-        if (isSegmentChallenge(_challengeType))
-            return athletesSucceededByDistanceChallengeId[_challengeId][_athleteId];
-        if (isDistanceChallenge(_challengeType))
-            return athletesSucceededByDistanceChallengeId[_challengeId][_athleteId];
-    }
-    
     function getChallengeEntryFee(ChallengeType _challengeType, uint _challengeId) public view returns (uint) {
         if (isSegmentChallenge(_challengeType))
             return segmentChallengesById[_challengeId].entryFee;
@@ -95,39 +95,26 @@ contract StravaChallengeHub {
             return distanceChallengesById[_challengeId].entryFee;
     }
     
-    function getNumAthletes(ChallengeType _challengeType, uint _challengeId) public view returns (uint) {
-        if (isSegmentChallenge(_challengeType))
-            return athletesBySegmentChallengeId[_challengeId].length;
-        if (isDistanceChallenge(_challengeType))
-            return athletesByDistanceChallengeId[_challengeId].length;
+    function isChallengeExpired(ChallengeType _challengeType, uint _challengeId) public view returns (bool) {
+        uint expireTime = getChallengeExpireTime(_challengeType, _challengeId);
+        return now > expireTime;
     }
     
-    function getAthleteIdAtIndex(ChallengeType _challengeType, uint _challengeId, uint index) public view returns (uint) {
-        if (isSegmentChallenge(_challengeType))
-            return athletesBySegmentChallengeId[_challengeId][index];
-        if (isDistanceChallenge(_challengeType))
-            return athletesByDistanceChallengeId[_challengeId][index];
-    }
-    
-    function getSucceededAthleteIds(ChallengeType _challengeType, uint _challengeId) public view returns (uint[] memory) {
-        uint[] memory resultArr;
+    function getSuccessfulAthleteIds(ChallengeType _challengeType, uint _challengeId) public view returns (uint[] memory) {
+        uint[] memory successfulAthleteIds;
         uint numAthletes = getNumAthletes(_challengeType, _challengeId);
-        uint resultArrIndex = 0;
+        uint resultIndex = 0;
         
-        // iterate over challenge athletes, push successful ones to array
+        // iterate over athlete ids, push successful ones to array
         for (uint index; index < numAthletes; index++) {
             uint _athleteId = getAthleteIdAtIndex(_challengeType, _challengeId, index);
-            if (isAthleteSucceeded(_challengeType, _challengeId, _athleteId)) {
-                resultArr[resultArrIndex] = _athleteId;
-                resultArrIndex++;
+            if (isAthleteSuccessful(_challengeType, _challengeId, _athleteId)) {
+                successfulAthleteIds[resultIndex] = _athleteId;
+                resultIndex++;
             }
         }
         
-        return resultArr;
-    }
-    
-    function getNumAthletesSucceeded(ChallengeType _challengeType, uint _challengeId) public view returns (uint) {
-        return getSucceededAthleteIds(_challengeType, _challengeId).length;
+        return successfulAthleteIds;
     }
     
     function getTotalChallengeFunds(ChallengeType _challengeType, uint _challengeId) public view returns (uint) {
@@ -154,11 +141,14 @@ contract StravaChallengeHub {
             activityType: _activityType
         });
         
-        // Add struct to challenges mapping
-        segmentChallengesById[numSegmentChallenges] = issuedSegmentChallenge;
+        // Get the challenge id from the number of challenges
+        uint _challengeId = _getChallengeMetaData(ChallengeType.Segment).numChallenges;
         
-        // get the challengeId and increment counter
-        uint _challengeId = numSegmentChallenges++;
+        // Add struct to challenges mapping
+        segmentChallengesById[_challengeId] = issuedSegmentChallenge;
+        
+        // Increment the counter
+        challengeManager[uint(ChallengeType.Segment)].numChallenges++;
         
         // Log ChallengeIssued event
         emit ChallengeIssued(ChallengeType.Segment, _challengeId);
@@ -181,11 +171,14 @@ contract StravaChallengeHub {
             activityType: _activityType
         });
         
-        // Add struct to challenges mapping
-        distanceChallengesById[numDistanceChallenges] = issuedDistanceChallenge;
+        // Get the challenge id from the number of challenges
+        uint _challengeId = _getChallengeMetaData(ChallengeType.Distance).numChallenges;
         
-        // get the challengeId and increment counter
-        uint _challengeId = numDistanceChallenges++;
+        // Add struct to challenges mapping
+        distanceChallengesById[_challengeId] = issuedDistanceChallenge;
+        
+        // Increment the counter
+        challengeManager[uint(ChallengeType.Distance)].numChallenges++;
         
         // Log ChallengeIssued event
         emit ChallengeIssued(ChallengeType.Distance, _challengeId);
@@ -211,13 +204,10 @@ contract StravaChallengeHub {
         require(msg.value >= entryFee, "Entry fee (ether value) is insufficient");
     
         // flag athelete as registered for challenge
-        if (isSegmentChallenge(_challengeType))
-            athletesRegisteredBySegmentChallengeId[_challengeId][_athleteId] = true;
-        if (isDistanceChallenge(_challengeType))
-            athletesRegisteredByDistanceChallengeId[_challengeId][_athleteId] = true;
+        challengeManager[uint(_challengeType)].athleteAddress[_challengeId][_athleteId] = msg.sender;
 
         // Log ChallengeJoined event
-        emit ChallengeJoined(_challengeType, _challengeId, _athleteId);
+        emit ChallengeJoined(_challengeType, _challengeId, _athleteId, msg.sender);
         
         return true;
     }
@@ -228,7 +218,17 @@ contract StravaChallengeHub {
         uint _challengeId,
         uint _athleteId
     ) external returns (bool) {
+        // check that challenge is not settled and the athlete is registered
+        require(!isChallengeSettled(_challengeType, _challengeId));
+        require(isAthleteRegistered(_challengeType, _challengeId, _athleteId));
         
+        // flag athlete as successful
+        challengeManager[uint(_challengeType)].athleteSucceeded[_challengeId][_athleteId] = true;
+        
+        // log AthleteSuceeded event
+        emit AthleteSucceeded(_challengeType, _challengeId, _athleteId);
+        
+        return true;
     }
     
     // TODO: Permissions
@@ -236,29 +236,28 @@ contract StravaChallengeHub {
         ChallengeType _challengeType,
         uint _challengeId
     ) external returns (bool) {
-        // make sure challenge is not settled
+        // make sure challenge is expired and not settled
+        require(isChallengeExpired(_challengeType, _challengeId));
         require(!isChallengeSettled(_challengeType, _challengeId));
         
-        uint[] memory succeededAthleteIds = getSucceededAthleteIds(_challengeType, _challengeId);
-        uint numAthletesSucceeded = succeededAthleteIds.length;
+        uint[] memory successfulAthleteIds = getSuccessfulAthleteIds(_challengeType, _challengeId);
+        uint numAthletesSucceeded = successfulAthleteIds.length;
         uint totalChallengeFunds = getTotalChallengeFunds(_challengeType, _challengeId);
         uint rewardValue = totalChallengeFunds.div(numAthletesSucceeded);
         
         for (uint index = 0; index < numAthletesSucceeded; index++) {
-            /* ... pay people ... */
+            uint _athleteId = successfulAthleteIds[index];
+            address _athleteAddress = getAthleteAddress(_challengeType, _challengeId, _athleteId);
+            address payable recipient = address(uint160(_athleteAddress));
+            recipient.transfer(rewardValue);
         }
         
         // flag challenge as settled
-        if (isSegmentChallenge(_challengeType))
-            segmentChallengesSettledById[_challengeId] = true;
-        if (isDistanceChallenge(_challengeType))
-            distanceChallengesSettledById[_challengeId] = true;
+        challengeManager[uint(_challengeType)].settled[_challengeId] = true;
         
         // emit ChallengeSettled event
         emit ChallengeSettled(_challengeType, _challengeId);
 
         return true;
     }
-    
 }
-
