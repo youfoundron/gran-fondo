@@ -5,7 +5,7 @@ export default {
     lightYellow: '#FDEF68',
     darkYellow: '#F7E429',
     deepBlue: '#2F3740',
-    DarkBlue: '#24292E',
+    darkBlue: '#24292E',
     grayDarker: '#616161',
     grayDarkest: '#2F3740',
     grayLightest: '#B4B4B4',
@@ -13,7 +13,7 @@ export default {
     Run: '#6EBE85',
     Swim: '#5D82B9'
   },
-  space: [0, 4, 8, 12, 16, 20, 36, 64, 128],
+  space: [0, 4, 8, 12, 16, 20, 36, 64, 80, 128, 180],
   fonts: {
     sans: 'system-ui, sans-serif',
     mono: 'Menlo, monospace'
@@ -28,10 +28,4 @@ export default {
     borderRadius: 7,
     boxShadow: '0 4px 14px rgba(0, 0, 0, 0.05)'
   }
-  // buttons: {
-  //   rounded: {
-  //     color: '#fff',
-  //     backgroundColor: deepBlue,
-  //   }
-  // }
 }
