@@ -26,58 +26,60 @@ const MenuLink = ({ to, text }) => (
   </Box>
 )
 
-const AppHeader = ({ theme, loggedIn }) => (
-  <div
-    style={{
-      position: 'sticky',
-      top: 0,
-      display: 'flex',
-      justifyContent: 'center',
-      backgroundColor: hexToRGB(theme.colors.lightYellow, 0.95),
-      boxShadow: '0px 10px 24px rgba(0,0,0,0.05)'
-    }}
-  >
-    <Flex
-      p={16}
-      alignItems='center'
-      justifyContent='space-between'
-      px={theme.uiGlobal.appLayoutMargin}
+const AppHeader = ({ theme, history, loggedIn }) =>
+  console.log(history) || (
+    <div
       style={{
-        width: '100%'
+        position: 'sticky',
+        top: 0,
+        display: 'flex',
+        justifyContent: 'center',
+        backgroundColor: hexToRGB(theme.colors.lightYellow, 0.95),
+        boxShadow: '0px 10px 24px rgba(0,0,0,0.05)'
       }}
     >
-      <Flex>
-        <Box>
-          <img
-            src={Logo}
-            alt={Logo}
-            style={{
-              height: '50px',
-              width: 'auto'
-            }}
-          />
-        </Box>
+      <Flex
+        p={16}
+        alignItems='center'
+        justifyContent='space-between'
+        px={theme.uiGlobal.appLayoutMargin}
+        style={{
+          width: '100%'
+        }}
+      >
+        <Flex>
+          <Box>
+            <img
+              src={Logo}
+              alt={Logo}
+              style={{
+                height: '50px',
+                width: 'auto'
+              }}
+            />
+          </Box>
+          {loggedIn && (
+            <Flex ml={3} alignItems='center' justifyContent='center'>
+              <MenuLink to='/' text='Challenges' />
+              <MenuLink to='/user' text='User' />
+            </Flex>
+          )}
+        </Flex>
         {loggedIn && (
-          <Flex ml={3} alignItems='center' justifyContent='center'>
-            <MenuLink to='/' text='Challenges' />
-            <MenuLink to='/user' text='User' />
-          </Flex>
+          <Box>
+            <Button
+              type='secondary'
+              isRounded
+              onClick={() => history.push('/create')}
+              style={{ padding: `${theme.space[4]}px ${theme.space[5]}px` }}
+            >
+              New Challenge
+            </Button>
+          </Box>
         )}
       </Flex>
-      {loggedIn && (
-        <Box>
-          <Button
-            type='secondary'
-            isRounded
-            style={{ padding: `${theme.space[4]}px ${theme.space[5]}px` }}
-          >
-            New Challenge
-          </Button>
-        </Box>
-      )}
-    </Flex>
-  </div>
-)
+    </div>
+  )
 
 AppHeader.defaultProps = {
   children: null,

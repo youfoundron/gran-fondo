@@ -29,11 +29,7 @@ const Filters = ({ filters, selected, label, style }) => (
             }`
           }}
         >
-          <Text
-            key={index}
-            style={{ whiteSpace: 'nowrap' }}
-            // onClick={() => this.setState({ challengeFilter: t })}
-          >
+          <Text key={index} style={{ whiteSpace: 'nowrap' }}>
             {t}
           </Text>
         </Box>
