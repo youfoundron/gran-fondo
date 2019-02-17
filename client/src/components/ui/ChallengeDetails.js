@@ -28,7 +28,8 @@ const ChallengeDetails = ({
   fee,
   description,
   isSubmitButtonActive,
-  isSubmitButtonVisible
+  isSubmitButtonVisible,
+  onClick
 }) => (
   <Flex flexDirection='column' style={{ height: '100%' }}>
     <div style={{ height: '100%' }}>
@@ -96,7 +97,7 @@ const ChallengeDetails = ({
       >
         <Button
           disabled={isSubmitButtonActive}
-          onClick={() => history.push('/challengeDetails')}
+          onClick={onClick}
           type='primary'
           style={{ padding: theme.space[4], width: '100%' }}
         >

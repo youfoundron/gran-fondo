@@ -18,12 +18,6 @@ class CreateChallengeForm extends React.Component {
 
     this.state = {
       exerciseType: 'Bike',
-      // exerciseType: '',
-      // name: '',
-      // description: '',
-      // expirationDate: '',
-      // distance: '',
-      // fee: ''
       name: 'Some cool name for an event',
       description:
         'Uhuh Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure laudantium, quod quos tempora rem non quia quibusdam est reiciendis, cupiditate commodi sint praesentium consequatur. Ad quae odit quas iusto harum!',
@@ -33,20 +27,34 @@ class CreateChallengeForm extends React.Component {
     }
   }
 
-  onChangeInput = (input, e) =>
-    this.setState({ [input]: e.currentTarget.value })
-
   render () {
     const { theme } = this.props
     const { type } = this.props.match.params
 
-    const exerciseTypes = Object.values(exerciseType)
-    const challengeType = capitalizeFirstLetter(type)
-    const formFieldValues = Object.values(this.state)
-    const areAnyFormFieldsEmpty = formFieldValues.includes('')
-
     return (
       <ScreenWrapper>
+        <Formik
+          initialValues={{
+            exerciseType: 'Bike',
+            name: 'Hawk Hill Summit',
+            description: 'Bike like hell!',
+            fee: '0.5',
+            expirationDate: String(m().add(m.duration(1, 'week')).unix()),
+            timeToBeat: String(m.duration(10, 'minutes').asSeconds()),
+            segmentId: '52271403536'
+          }}
+          onSubmit={(values, actions) => {
+            console.log({ values })
+
+            
+          }}
+          render={props => {
+            const exerciseTypes = Object.values(exerciseType)
+            const challengeType = capitalizeFirstLetter(type)
+            const formFieldValues = Object.values(props.values)
+            const areAnyFormFieldsEmpty = formFieldValues.includes('')
+        
+            return (
         <Flex style={{ flex: 1, height: '100%', width: '100%' }}>
           <Box
             flex={1}
@@ -58,18 +66,6 @@ class CreateChallengeForm extends React.Component {
             }}
           >
             <HeaderTitleBox title={`Create A ${challengeType} Challenge`} />
-            <Formik
-              initialValues={{
-                
-              }}
-              onSubmit={(values, actions) => {
-                console.log({ values })
-                // setTimeout(() => {
-                //   alert(JSON.stringify(values, null, 2));
-                //   actions.setSubmitting(false);
-                // }, 1000);
-              }}
-              render={props => (
                 <Box py={50} px={`${theme.uiGlobal.appLayoutMargin}px`}>
                   <Box my={6}>
                     {exerciseTypes.map((t, index) => (
@@ -84,7 +80,7 @@ class CreateChallengeForm extends React.Component {
                           type='radio'
                           name='activityType'
                           style={{ marginRight: '5px' }}
-                          checked={this.state.exerciseType === t}
+                          checked={props.values.exerciseType === t}
                           onChange={props.handleChange}
                           onBlur={props.handleBlur}
                           value={props.values.activityType}
@@ -116,21 +112,21 @@ class CreateChallengeForm extends React.Component {
                   <Box my={6}>
                     <Input
                       type='text'
-                      name='entryFee'
+                      name='fee'
                       title='Entry Fee (ETH)'
                       onChange={props.handleChange}
                       onBlur={props.handleBlur}
-                      value={props.values.entryFee}
+                      value={props.values.fee}
                     />
                   </Box>
                   <Box my={6}>
                     <Input
                       type='text'
-                      name='expireTime'
+                      name='expirationDate'
                       title='Expiration Date/Time'
                       onChange={props.handleChange}
                       onBlur={props.handleBlur}
-                      value={props.values.expireTime}
+                      value={props.values.expirationDate}
                     />
                   </Box>
                   <Box my={6}>
@@ -154,90 +150,30 @@ class CreateChallengeForm extends React.Component {
                     />
                   </Box>
                 </Box>
-              )}
-            />
           </Box>
-            {/* <Box py={50} px={`${theme.uiGlobal.appLayoutMargin}px`}>
-              <Box my={4}>
-                {exerciseTypes.map((t, index) => (
-                  <label
-                    key={index}
-                    style={{
-                      marginRight: '15px',
-                      fontFamily: 'Metropolis Semi Bold'
-                    }}
-                  >
-                    <input
-                      type='radio'
-                      name={t}
-                      value={t}
-                      checked={this.state.exerciseType === t}
-                      onChange={e => this.onChangeInput('exerciseType', e)}
-                      style={{ marginRight: '5px' }}
-                    />
-                    {t}
-                  </label>
-                ))}
-              </Box>
-              <Box my={6}>
-                <Input
-                  type='text'
-                  title='Name'
-                  value={this.state.name}
-                  onChange={e => this.onChangeInput('name', e)}
-                />
-              </Box>
-              <Box my={6}>
-                <Input
-                  type='text'
-                  title='Description'
-                  value={this.state.description}
-                  onChange={e => this.onChangeInput('description', e)}
-                />
-              </Box>
-              <Box my={6}>
-                <Input
-                  type='text'
-                  title='Expiration Date/Time'
-                  value={this.state.expirationDate}
-                  onChange={e => this.onChangeInput('expirationDate', e)}
-                />
-              </Box>
-              <Box my={6}>
-                <Input
-                  type='text'
-                  title='Distance'
-                  value={this.state.distance}
-                  onChange={e => this.onChangeInput('distance', e)}
-                />
-              </Box>
-              <Box my={6}>
-                <Input
-                  type='text'
-                  title='Entry Fee $'
-                  value={this.state.fee}
-                  onChange={e => this.onChangeInput('fee', e)}
-                />
-              </Box>
-            </Box>
-          </Box> */}
           <Box flex={1}>
             <ChallengeDetails
+              onClick={() => {
+                props.submitForm()
+              }}
               exerciseType={
-                this.state.exerciseType || 'Select an exercise type'
+                props.values.exerciseType || 'Select an exercise type'
               }
               challengeType={challengeType}
-              name={this.state.name || 'Name the challenge'}
+              name={props.values.name || 'Name the challenge'}
               description={
-                this.state.description || 'Add a description for this challenge'
+                props.values.description || 'Add a description for this challenge'
               }
-              expirationDate={this.state.expirationDate || ''}
-              distance={this.state.distance || 'Add a distance'}
-              fee={this.state.fee || '0'}
+              expirationDate={props.values.expirationDate || ''}
+              distance={props.values.distance || 'Add a distance'}
+              fee={props.values.fee || '0'}
               isSubmitButtonActive={areAnyFormFieldsEmpty}
             />
           </Box>
         </Flex>
+                      )
+                    }}
+              />
       </ScreenWrapper>
     )
   }
