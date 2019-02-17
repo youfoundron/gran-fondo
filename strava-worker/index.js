@@ -7,6 +7,10 @@ const strava = require('./strava-lib.js')
 // const strava = require('./strava-lib')(STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET)
 const port = 3001
 
+app.get('/', async (req, res) => {
+  res.send('Yay - try /challenge-success')
+})
+
 app.get('/athlete', async (req, res) => {
   const athlete = await strava.getAthlete()
   res.send(athlete)
@@ -28,7 +32,7 @@ app.get('/challenge-success', async (req, res) => {
 
   const success = await strava.checkAthleteSuccess({challenge, athleteId})
 
-  res.send(`suceeded ? ${success}`)
+  res.json({success})
 })
 
 app.listen(port, () => console.log(`Strava worker listening on port ${port}!`))
