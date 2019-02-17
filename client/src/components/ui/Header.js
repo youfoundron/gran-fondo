@@ -15,12 +15,13 @@ const Header = ({
   <RHeading
     {...props}
     fontWeight='bold'
-    fontSize={[fontSize]}
+    fontSize={fontSize}
     color={color || theme.colors.grayDarkest}
     style={{
       textAlign: 'left',
       fontFamily,
-      letterSpacing: '0.8px',
+      lineHeight: '1.8rem',
+      // letterSpacing: '0.8px',
       ...(hasBottomBorder
         ? {
           width: 'auto',
