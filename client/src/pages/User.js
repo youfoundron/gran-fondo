@@ -1,9 +1,10 @@
 import React from 'react'
+import ScreenWrapper from './ScreenWrapper'
 
 const User = () => (
-  <div>
+  <ScreenWrapper>
     <h1>User</h1>
-  </div>
+  </ScreenWrapper>
 )
 
 export default User

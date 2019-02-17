@@ -1,9 +1,10 @@
 import React from 'react'
+import ScreenWrapper from './ScreenWrapper'
 
 const Home = () => (
-  <div>
+  <ScreenWrapper>
     <h1>Home</h1>
-  </div>
+  </ScreenWrapper>
 )
 
 export default Home
