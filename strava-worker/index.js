@@ -42,15 +42,3 @@ app.listen(port, () => console.log(`Strava worker listening on port ${port}!`))
 strava.getAthlete().then(
   res => {console.log(res)}
 )
-
-function didAthleteCompleteSegmentChallenge(
-  _segmentId,
-  _athleteId,
-  _timeToBeat,
-  _expirationTime
-) {
-  // get athlete's attempts at segement before _expirationTime
-  // if attempts include a time less than _timeToBeat return true
-  // else return false
-}
-
