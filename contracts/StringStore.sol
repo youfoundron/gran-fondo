@@ -11,7 +11,8 @@ import "chainlink/solidity/contracts/Chainlinked.sol";
 // RINKEBY CHAINLINK TOKEN ADDRESS  0x01BE23585060835E02B77ef475b0Cc51aA1e0709
 // RINKEBY CHAINLINK ORACLE ADDRESS 0xEfb76209b41DeC8b1FFA319F5880488CB4BbA797
 
-contract StringStore is Chainlinked {
+
+contract AStringStore is Chainlinked {
     constructor() public {
         setLinkToken(0x01BE23585060835E02B77ef475b0Cc51aA1e0709);
         setOracle(0x7AFe1118Ea78C1eae84ca8feE5C65Bc76CcF879e);
@@ -25,17 +26,20 @@ contract StringStore is Chainlinked {
         myString = x;
     }
 
+    function generateUrl(int challengeType, uint64 segmentId, uint64 expireTime, uint64 timeToBeat) internal pure returns (string) {
+        string memory base = "http://f2d75abe.ngrok.io/challenge-success?data=";
+        return string(abi.encodePacked(base, challengeType, segmentId, expireTime, timeToBeat));
+    }
+    
+    function testUrl() public pure returns (string result) {
+        result = string(abi.encodePacked(uint8(0x42), uint256(0x1337), "AAAA", "BBBB"));
+    }
+
     function getSuccess() public returns (bytes32 requestId) {
         // newRequest takes a JobID, a callback address, and callback function as input
         Chainlink.Request memory req = newRequest(RINKEBY_BOOL_JOB, this, this.setSuccess.selector);
-        req.add("get", "http://f2d75abe.ngrok.io/challenge-success");
+        req.add("get", generateUrl(0, 52271403536, 1557307451000, 800));
         req.add("path", "success");
-
-        // add our data
-        req.addInt("type", 0);
-        req.addInt("segmentId", 52271403536);
-        req.addInt("expireTime", 1557307451000);
-        req.addInt("timeToBeat", 800);
 
         requestId = chainlinkRequest(req, 1 * LINK);
     }
