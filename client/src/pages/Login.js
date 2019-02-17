@@ -8,13 +8,12 @@ import { Flex, Box } from 'rebass'
 import ScreenWrapper from './ScreenWrapper'
 import HeaderTitleBox from '../components/ui/HeaderTitleBox'
 import Label from '../components/ui/Label'
-import ChallengeCard from '../components/ui/ChallengeCard'
+import ChallengeCardGroup from '../components/ui/ChallengeCardGroup'
 import Card from '../components/ui/Card'
 import Input from '../components/ui/Input'
 import Header from '../components/ui/Header'
 import Button from '../components/ui/Button'
 
-import map from '../assets/images/map.jpg'
 import stravaImage from '../assets/images/running-brush.jpg'
 import stravaLogo from '../assets/images/strava-logo.jpg'
 import personIcon from '../assets/images/icon-person.jpg'
@@ -34,20 +33,7 @@ const Login = ({ theme, loggedIn, loginUser }) =>
             <Box mb={4}>
               <Label>Popular Challenges</Label>
             </Box>
-            <Flex flexDirection='column'>
-              {POPULAR_CHALLENGES.map((c, index) => (
-                <Box my={2}>
-                  <ChallengeCard
-                    image={map}
-                    challengeType={c.challengeType}
-                    title={c.title}
-                    exerciseType={c.exerciseType}
-                    fee={c.fee}
-                    isHorizontal
-                  />
-                </Box>
-              ))}
-            </Flex>
+            <ChallengeCardGroup challenges={POPULAR_CHALLENGES} isHorizontal />
           </Box>
         </Box>
         <Box

@@ -8,6 +8,8 @@ const Badge = ({ theme, text, color }) => (
     style={{
       borderRadius: '3px',
       padding: '3px 4px',
+      textTransform: 'uppercase',
+      fontFamily: 'Metropolis Semi Bold',
       backgroundColor: color || theme.colors.grayDarkest
     }}
   >

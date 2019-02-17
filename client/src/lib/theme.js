@@ -6,6 +6,7 @@ export default {
     darkYellow: '#F7E429',
     deepBlue: '#2F3740',
     darkBlue: '#24292E',
+    linkBlue: '#628EC0',
     grayDarker: '#616161',
     grayDarkest: '#2F3740',
     grayLightest: '#B4B4B4',

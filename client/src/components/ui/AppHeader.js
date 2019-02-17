@@ -1,9 +1,10 @@
 import React from 'react'
-import { Flex, Box, Button } from 'rebass'
+import { Flex, Box } from 'rebass'
 import styled, { withTheme } from 'styled-components'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { shadeColor, hexToRGB } from '../../lib/helpers'
+import Button from '../../components/ui/Button'
 
 import Logo from '../../assets/images/logo.jpg'
 
@@ -65,7 +66,13 @@ const AppHeader = ({ theme, loggedIn }) => (
       </Flex>
       {loggedIn && (
         <Box>
-          <Button bg='blue'>New Challenge</Button>
+          <Button
+            type='secondary'
+            isRounded
+            style={{ padding: `${theme.space[4]}px ${theme.space[5]}px` }}
+          >
+            New Challenge
+          </Button>
         </Box>
       )}
     </Flex>
