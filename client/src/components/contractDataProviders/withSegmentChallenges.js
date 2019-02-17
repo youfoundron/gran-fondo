@@ -28,7 +28,7 @@ const withSegmentChallenges = Cmp => withNumSegmentChallenges(
         )
       })
 
-      if (segmentChallenges.filter(x => x == undefined).length) {
+      if (segmentChallenges.filter(x => x === undefined).length) {
         return 'Loading...'
       }
 

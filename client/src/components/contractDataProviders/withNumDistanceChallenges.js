@@ -23,7 +23,7 @@ const withNumDistanceChallenges = Cmp => withDrizzleContext(
         StravaChallengeHub.challengeManager[this.state.dataKey].value
       )
 
-      if (numDistanceChallenges == undefined) {
+      if (numDistanceChallenges === undefined) {
         return 'Loading...'
       }
 
