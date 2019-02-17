@@ -1,4 +1,5 @@
 # gran-fondo
+A Commitment Device for Athletic Performance
 
 **Login Screen**
 ![Image of Gran Fondo](https://user-images.githubusercontent.com/8157657/52916572-86d77700-329e-11e9-8853-fa31846a3308.png)
