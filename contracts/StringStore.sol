@@ -17,4 +17,12 @@ contract StringStore is Chainlinked {
   function set(string memory x) public {
     myString = x;
   }
+
+  int256 public succeeded;
+
+  function checkAthleteSucceeded(bytes32 _requestId, int256 _succeeded)
+    public recordChainlinkFulfillment(_requestId)
+  {
+    succeeded = _succeeded;
+  }
 }
