@@ -42,7 +42,7 @@ class CreateChallengeForm extends React.Component {
     const areAnyFormFieldsEmpty = formFieldValues.includes('')
 
     return (
-      <ScreenWrapper>
+      <ScreenWrapper style={{ height: '100%' }}>
         <Flex style={{ flex: 1, height: '100%', width: '100%' }}>
           <Box
             flex={1}

@@ -86,18 +86,22 @@ export const CHALLENGE_SINGLE = {
 
 export const USERS = [
   {
+    image: 'girlie.jpg',
     name: 'Haley Jackson',
     location: 'San Francisco, CA'
   },
   {
+    image: 'girlie.jpg',
     name: 'Rodney Jones',
     location: 'Los Gatos, CA'
   },
   {
+    image: 'girlie.jpg',
     name: 'Dale Arnold',
     location: 'Sausalito, CA'
   },
   {
+    image: 'girlie.jpg',
     name: 'Becky Smith',
     location: 'Oakland, CA'
   }

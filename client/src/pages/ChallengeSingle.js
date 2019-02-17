@@ -8,6 +8,11 @@ import UserCard from '../components/ui/UserCard'
 
 import { CHALLENGE_SINGLE, USERS } from '../lib/dummyData'
 
+import image1 from '../assets/images/girlie.jpg'
+import image2 from '../assets/images/guy-in-hat.jpg'
+import image3 from '../assets/images/women.jpg'
+import image4 from '../assets/images/guy-outside.jpg'
+
 const ChallengeSingle = ({ theme }) => (
   <ScreenWrapper>
     <Flex style={{ flex: 1, height: '100%', width: '100%' }}>
@@ -34,17 +39,41 @@ const ChallengeSingle = ({ theme }) => (
           distance={CHALLENGE_SINGLE.distance || 'Add a distance'}
           fee={CHALLENGE_SINGLE.fee || '0'}
           isSubmitButtonVisible={false}
+          isViewingExistingChallenge
         />
       </Box>
       <Box width='40%'>
         <Box py={50} px={`${theme.uiGlobal.appLayoutMargin}px`}>
           <Label>5 Participants</Label>
           <Box py={5}>
-            {USERS.map((u, index) => (
-              <Box my={4}>
-                <UserCard key={index} name={u.name} location={u.location} />
-              </Box>
-            ))}
+            <Box my={4}>
+              <UserCard
+                name={USERS[0].name}
+                location={USERS[0].location}
+                image={image1}
+              />
+            </Box>
+            <Box my={4}>
+              <UserCard
+                name={USERS[1].name}
+                location={USERS[1].location}
+                image={image2}
+              />
+            </Box>
+            <Box my={4}>
+              <UserCard
+                name={USERS[2].name}
+                location={USERS[2].location}
+                image={image4}
+              />
+            </Box>
+            <Box my={4}>
+              <UserCard
+                name={USERS[3].name}
+                location={USERS[3].location}
+                image={image3}
+              />
+            </Box>
           </Box>
         </Box>
       </Box>
