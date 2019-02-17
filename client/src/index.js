@@ -27,22 +27,22 @@ const web3Contract = new web3.eth.Contract(
   }
 )
 
-// if deploying remix on rinkeby
-const drizzleOptions = {
-  contracts: [{
-    contractName: 'StringStore',
-    web3Contract
-  }]
-};
+// // if deploying remix on rinkeby
+// const drizzleOptions = {
+//   contracts: [{
+//     contractName: 'StringStore',
+//     web3Contract
+//   }]
+// };
 
 const store = initializeStore()
 
 ReactDOM.render(
-  <DrizzleProvider options={drizzleOptions}>
+  // <DrizzleProvider options={drizzleOptions}>
     <Provider store={store}>
       <App />
-    </Provider>
-  </DrizzleProvider>,
+    </Provider>,
+  // </DrizzleProvider>,
   document.getElementById('root')
 );
 

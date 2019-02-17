@@ -6,6 +6,7 @@
   "author": "Ron Gierlach <rongierlach@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "compile": "truffle compile",
     "flatten": "truffle-flattener ./contracts/StringStore.sol > ./contracts/flattened.sol"
   },
   "dependencies": {
