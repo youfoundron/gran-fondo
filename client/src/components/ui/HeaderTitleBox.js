@@ -3,27 +3,48 @@ import { Flex, Box } from 'rebass'
 import { withTheme } from 'styled-components'
 import Header from './Header'
 
-const HeaderTitleBox = ({ theme, title }) => (
-  <Flex
-    style={{
-      paddingTop: '40px',
-      paddingLeft: `${theme.uiGlobal.appLayoutMargin}px`,
-      backgroundColor: '#fff'
-    }}
-  >
-    <Box
+const HeaderTitleBox = ({ theme, title, alignment, style }) => {
+  let justifyContent
+  switch (alignment) {
+    case 'center':
+      justifyContent = 'center'
+      break
+    case 'right':
+      justifyContent = 'flex-end'
+      break
+    default:
+      justifyContent = 'flex-start'
+      break
+  }
+
+  return (
+    <Flex
       style={{
-        width: 'auto',
-        borderBottom: `4px solid ${theme.colors.lightYellow}`
+        paddingTop: '50px',
+        paddingLeft: `${theme.uiGlobal.appLayoutMargin}px`,
+        backgroundColor: '#fff',
+        justifyContent,
+        ...style
       }}
     >
-      <Header pb={4}>{title}</Header>
-    </Box>
-  </Flex>
-)
+      <Box
+        style={{
+          width: 'auto',
+          borderBottom: `4px solid ${theme.colors.lightYellow}`
+        }}
+      >
+        <Header pb={4} fontFamily='Metropolis Regular' fontSize={5}>
+          {title}
+        </Header>
+      </Box>
+    </Flex>
+  )
+}
 
 HeaderTitleBox.defaultProps = {
-  title: ''
+  title: '',
+  alignment: 'left',
+  style: {}
 }
 
 export default withTheme(HeaderTitleBox)

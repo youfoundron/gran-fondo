@@ -7,7 +7,10 @@ const ButtonStyled = styled(RButton)`
   text-transform: uppercase;
   font-family: 'Metropolis Semi Bold';
   cursor: pointer;
+  fontsize: ${p => p.fontSize}px;
+  line-height: 1rem;
   box-shadow: ${({ theme }) => theme.uiGlobal.boxShadow};
+  outline: none;
   transition: all 0.25s ease;
 
   ${p => {
@@ -34,11 +37,20 @@ const ButtonStyled = styled(RButton)`
   }}
 `
 
-const Button = ({ theme, children, type, onClick, isRounded, style }) => (
+const Button = ({
+  theme,
+  children,
+  type,
+  onClick,
+  isRounded,
+  fontSize,
+  style
+}) => (
   <ButtonStyled
     type={type}
     style={style}
     onClick={onClick}
+    fontSize={fontSize}
     borderRadius={isRounded ? '100px' : '6px'}
   >
     {children}
@@ -50,6 +62,7 @@ Button.defaultProps = {
   type: '',
   onClick: '',
   isRounded: false,
+  fontSize: 14,
   style: {}
 }
 

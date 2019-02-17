@@ -25,7 +25,7 @@ const Login = ({ theme, loggedIn, loginUser }) =>
   loggedIn ? (
     <Redirect to='/' />
   ) : (
-    <ScreenWrapper loggedIn={loggedIn}>
+    <ScreenWrapper>
       <Flex style={{ flex: 1, height: '100%', width: '100%' }}>
         <Box flex={1}>
           <HeaderTitleBox title='Login to get started' />
@@ -39,7 +39,7 @@ const Login = ({ theme, loggedIn, loginUser }) =>
         <Box
           width='40%'
           style={{
-            backgroundPositon: 'center',
+            backgroundPosition: 'center',
             backgroundImage: `url(${stravaImage})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: theme.colors.darkBlue

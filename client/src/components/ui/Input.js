@@ -37,7 +37,7 @@ const Input = ({ theme, type, title, image }) => (
         width: `${ICON_SIZE + 10}px`,
         height: `${ICON_SIZE}px`,
         backgroundSize: `${ICON_SIZE}px ${ICON_SIZE}px`,
-        backgroundPositon: 'center',
+        backgroundPosition: 'center',
         backgroundImage: `url(${image})`,
         backgroundRepeat: 'no-repeat'
       }}

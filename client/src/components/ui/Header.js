@@ -9,6 +9,7 @@ const Header = ({
   fontSize,
   color,
   hasBottomBorder,
+  style,
   ...props
 }) => (
   <RHeading
@@ -26,7 +27,8 @@ const Header = ({
           paddingBottom: 10,
           marginBottom: 30
         }
-        : {})
+        : {}),
+      ...style
     }}
   >
     {children}
@@ -38,7 +40,8 @@ Header.defaultProps = {
   fontSize: 4,
   color: '',
   hasBottomBorder: false,
-  fontFamily: 'Metropolis Semi Bold'
+  fontFamily: 'Metropolis Semi Bold',
+  style: {}
 }
 
 export default withTheme(Header)
