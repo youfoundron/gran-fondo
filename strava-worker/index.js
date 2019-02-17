@@ -17,6 +17,8 @@ app.get('/athlete', async (req, res) => {
 })
 
 app.get('/challenge-success', async (req, res) => {
+
+  console.log('***', { req, params: req.params })
   const challenge = {
     // TODO: type from request
     type: 0,
@@ -37,9 +39,6 @@ app.get('/challenge-success', async (req, res) => {
 
 app.listen(port, () => console.log(`Strava worker listening on port ${port}!`))
 
-<<<<<<< Updated upstream
-strava.authenticate()
-=======
 strava.getAthlete().then(
   res => {console.log(res)}
 )
@@ -55,4 +54,3 @@ function didAthleteCompleteSegmentChallenge(
   // else return false
 }
 
->>>>>>> Stashed changes

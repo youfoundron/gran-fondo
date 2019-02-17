@@ -30,6 +30,13 @@ contract StringStore is Chainlinked {
         Chainlink.Request memory req = newRequest(RINKEBY_BOOL_JOB, this, this.setSuccess.selector);
         req.add("get", "http://f2d75abe.ngrok.io/challenge-success");
         req.add("path", "success");
+
+        // add our data
+        req.addInt("type", 0);
+        req.addInt("segmentId", 52271403536);
+        req.addInt("expireTime", 1557307451000);
+        req.addInt("timeToBeat", 800);
+
         requestId = chainlinkRequest(req, 1 * LINK);
     }
 
