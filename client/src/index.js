@@ -14,7 +14,7 @@ import StringStore from './contracts/StringStore.json';
 const {REACT_APP_INFURA_ENDPOINT, REACT_APP_CONTRACT_ADDRESS, REACT_APP_FROM_ADDRESS} = process.env
 
 console.log('***', { StringStore })
-
+console.log(StringStore.abi)
 var web3 = new Web3(new Web3.providers.HttpProvider(REACT_APP_INFURA_ENDPOINT));
 // if deploying via truffle
 // const drizzleOptions = { contracts: [StravaChallengeHub] };
@@ -36,7 +36,7 @@ const web3Contract = new web3.eth.Contract(
 // };
 
 const store = initializeStore()
-
+console.log(drizzleOptions)
 ReactDOM.render(
   // <DrizzleProvider options={drizzleOptions}>
     <Provider store={store}>
@@ -45,7 +45,6 @@ ReactDOM.render(
   // </DrizzleProvider>,
   document.getElementById('root')
 );
-
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA
