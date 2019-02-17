@@ -50,7 +50,7 @@ const CreateChallengeSelectType = ({ theme, history }) => (
       style={{ paddingTop: '100px' }}
     />
     <Flex
-      py={7}
+      py={8}
       style={{
         flex: 1,
         height: '100%',
