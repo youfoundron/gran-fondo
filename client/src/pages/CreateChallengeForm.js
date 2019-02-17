@@ -28,7 +28,7 @@ class CreateChallengeForm extends React.Component {
   }
 
   render () {
-    const { theme } = this.props
+    const { theme, drizzle, drizzle: { web3 } } = this.props
     const { type } = this.props.match.params
 
     return (
@@ -44,9 +44,21 @@ class CreateChallengeForm extends React.Component {
             segmentId: '52271403536'
           }}
           onSubmit={(values, actions) => {
-            console.log({ values })
-
+            const { StravaChallengeHub } = drizzle.contracts
             
+            const segmentChallengeParams = {
+              _entryFee: web3.utils.toWei(values.fee),
+              _expireTime: values.expirationDate,
+              _timeToBeat: values.timeToBeat,
+              _segmentId: values.segmentId,
+              _activityType: 0
+            }
+            
+            const stackId = StravaChallengeHub.methods.issueSegmentChallenge.cacheSend(
+              ...Object.values(segmentChallengeParams)
+            )
+            
+            // push to new page?
           }}
           render={props => {
             const exerciseTypes = Object.values(exerciseType)
