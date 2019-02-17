@@ -1,4 +1,4 @@
-# gran-fondo
+# Gran Fondo
 A Commitment Device for Athletic Performance
 
 **Login Screen**
