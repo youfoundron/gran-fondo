@@ -6,6 +6,7 @@ export default {
     darkYellow: '#F7E429',
     deepBlue: '#2F3740',
     darkBlue: '#24292E',
+    linkBlue: '#628EC0',
     grayDarker: '#616161',
     grayDarkest: '#2F3740',
     grayLightest: '#B4B4B4',
@@ -24,6 +25,8 @@ export default {
   },
   uiGlobal: {
     appLayoutMargin: 40,
+    appHeaderLogoHeight: 50,
+    appHeaderLogoMargin: 16,
     appBackground: '#F7F7F7',
     borderRadius: 7,
     boxShadow: '0 4px 14px rgba(0, 0, 0, 0.05)'

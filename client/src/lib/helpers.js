@@ -32,3 +32,7 @@ export function hexToRGB (hex, alpha) {
 
   return `rgba(${r}, ${g}, ${b}, ${alpha.toString() || 1})`
 }
+
+export function capitalizeFirstLetter (string) {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+}

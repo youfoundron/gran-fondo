@@ -3,7 +3,7 @@ const app = express()
 const strava = require('./strava-lib.js')
 
 
-
+console.log(strava)
 // const strava = require('./strava-lib')(STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET)
 const port = 3001
 
@@ -37,4 +37,22 @@ app.get('/challenge-success', async (req, res) => {
 
 app.listen(port, () => console.log(`Strava worker listening on port ${port}!`))
 
+<<<<<<< Updated upstream
 strava.authenticate()
+=======
+strava.getAthlete().then(
+  res => {console.log(res)}
+)
+
+function didAthleteCompleteSegmentChallenge(
+  _segmentId,
+  _athleteId,
+  _timeToBeat,
+  _expirationTime
+) {
+  // get athlete's attempts at segement before _expirationTime
+  // if attempts include a time less than _timeToBeat return true
+  // else return false
+}
+
+>>>>>>> Stashed changes
