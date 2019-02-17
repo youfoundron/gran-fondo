@@ -14,7 +14,7 @@ const InputBox = styled.input`
   line-height: ${INPUT_HEIGHT}px;
 `
 
-const Input = ({ theme, type, title, image, onChange }) => (
+const Input = ({ name, theme, type, title, image, value, onChange, handleBlur }) => (
   <Flex
     alignItems='flex-end'
     style={{
@@ -26,8 +26,11 @@ const Input = ({ theme, type, title, image, onChange }) => (
     </Box>
     <Box flex={1} mx={3}>
       <InputBox
+        name={name}
         type={type}
+        value={value}
         onChange={onChange}
+        handleBlur={handleBlur}
         style={{
           fontSize: '16px',
           outline: 'none',

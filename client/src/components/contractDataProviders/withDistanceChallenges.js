@@ -28,7 +28,7 @@ const withDistanceChallenges = Cmp => withNumDistanceChallenges(
         )
       })
 
-      if (distanceChallenges.filter(x => x == undefined).length) {
+      if (distanceChallenges.filter(x => x === undefined).length) {
         return 'Loading...'
       }
 

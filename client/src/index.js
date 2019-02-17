@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { Drizzle, generateStore as initializeDrizzleStore } from 'drizzle'
 import { DrizzleContext } from 'drizzle-react';
-import Web3 from 'web3'
+// import Web3 from 'web3'
 import './index.css';
 import App from './App';
 import initializeStore from './store'
@@ -19,7 +19,7 @@ import StravaChallengeHub from './contracts/StravaChallengeHub.json';
 // } = process.env
 
 // var web3 = new Web3(new Web3.providers.HttpProvider(REACT_APP_INFURA_ENDPOINT));
-var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
+// var web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'))
 
 const drizzleOptions = {
   syncAlways: true,

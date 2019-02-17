@@ -1,6 +1,5 @@
 import React from 'react'
 import { compose } from 'redux'
-import { DrizzleContext } from "drizzle-react";
 import { Flex, Box, Text } from 'rebass'
 import { withTheme } from 'styled-components'
 import ScreenWrapper from './ScreenWrapper'
@@ -47,9 +46,7 @@ class Home extends React.Component {
 
     this.state = {
       challengeFilter: SHOW_ALL,
-      exerciseFilter: SHOW_ALL,
-      segmentChallengeDataKeys: [],
-      distanceChallengeDataKeys: []
+      exerciseFilter: SHOW_ALL
     }
   }
 

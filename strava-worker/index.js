@@ -1,7 +1,22 @@
 const express = require('express')
 const app = express()
 const strava = require('./strava-lib.js')
+var Int64BE = require("int64-buffer").Int64BE;
 
+
+const convertQuery = data => {
+  // the ugliest piece of integer parsing code I've ever written
+  const intArray = data.split('\\').slice(1 + 16).map(d=>parseInt(d.slice(1)))
+
+  const type = parseInt(Int64BE(new Buffer(intArray.slice(0, 8))))
+  const segmentId = parseInt(Int64BE(new Buffer(intArray.slice(8, 16))))
+  const expireTime = parseInt(Int64BE(new Buffer(intArray.slice(16, 24))))
+  const timeToBeat = parseInt(Int64BE(new Buffer(intArray.slice(24, 32))))
+
+  const challenge = { type, segmentId, expireTime, timeToBeat };
+  console.log('***', {challenge})
+  return challenge
+}
 
 console.log(strava)
 // const strava = require('./strava-lib')(STRAVA_CLIENT_ID, STRAVA_CLIENT_SECRET)
@@ -19,16 +34,8 @@ app.get('/athlete', async (req, res) => {
 app.get('/challenge-success', async (req, res) => {
 
   console.log('***', { req, params: req.params })
-  const challenge = {
-    // TODO: type from request
-    type: 0,
-    // TODO: segment id from request
-    segmentId: 52271403536,
-    // TODO: expire time from request
-    expireTime: 1557307451000,
-    // TODO: time from request
-    timeToBeat: 800 // seconds, I think
-  }
+  
+  const challenge = convertQuery(req.query.data)
 
   const athleteId = req.params.athleteId
 
