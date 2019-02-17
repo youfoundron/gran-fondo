@@ -10,6 +10,12 @@ import Badge from './Badge'
 
 import map from '../../assets/images/map.jpg'
 
+const LabelWrap = ({ children }) => (
+  <Box mb={1}>
+    <Label>{children}</Label>
+  </Box>
+)
+
 const ChallengeDetails = ({
   theme,
   history,
@@ -21,7 +27,8 @@ const ChallengeDetails = ({
   distance,
   fee,
   description,
-  isSubmitButtonActive
+  isSubmitButtonActive,
+  isSubmitButtonVisible
 }) => (
   <Flex flexDirection='column' style={{ height: '100%' }}>
     <div style={{ height: '100%' }}>
@@ -67,6 +74,7 @@ const ChallengeDetails = ({
             margin: `${theme.space[5]}px ${theme.uiGlobal.appLayoutMargin}px`
           }}
         >
+          <LabelWrap>Description</LabelWrap>
           {description}
           <p>----------------</p>
           <Badge text={exerciseType} color={theme.colors[exerciseType]} />
@@ -76,24 +84,26 @@ const ChallengeDetails = ({
       </Box>
     </div>
 
-    <Box
-      p={5}
-      style={{
-        position: 'sticky',
-        bottom: 0,
-        backgroundColor: theme.uiGlobal.appBackground,
-        boxShadow: '0px 0px 50px rgba(0, 0, 0, 0.1)'
-      }}
-    >
-      <Button
-        disabled={isSubmitButtonActive}
-        onClick={() => history.push('/challengeDetails')}
-        type='primary'
-        style={{ padding: theme.space[4], width: '100%' }}
+    {isSubmitButtonVisible && (
+      <Box
+        p={5}
+        style={{
+          position: 'sticky',
+          bottom: 0,
+          backgroundColor: theme.uiGlobal.appBackground,
+          boxShadow: '0px 0px 50px rgba(0, 0, 0, 0.1)'
+        }}
       >
-        Confirm and Create
-      </Button>
-    </Box>
+        <Button
+          disabled={isSubmitButtonActive}
+          onClick={() => history.push('/challengeDetails')}
+          type='primary'
+          style={{ padding: theme.space[4], width: '100%' }}
+        >
+          Confirm and Create
+        </Button>
+      </Box>
+    )}
   </Flex>
 )
 
@@ -104,7 +114,8 @@ ChallengeDetails.defaultProps = {
   expirationDate: '',
   distance: '',
   fee: '',
-  isSubmitButtonActive: false
+  isSubmitButtonActive: false,
+  isSubmitButtonVisible: true
 }
 
 export default withRouter(withTheme(ChallengeDetails))
