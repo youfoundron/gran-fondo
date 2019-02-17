@@ -19,17 +19,21 @@ var web3 = new Web3(new Web3.providers.HttpProvider(REACT_APP_INFURA_ENDPOINT));
 // if deploying via truffle
 // const drizzleOptions = { contracts: [StravaChallengeHub] };
 
+const web3Contract = new web3.eth.Contract(
+  StringStore.abi,
+  REACT_APP_CONTRACT_ADDRESS,
+  {
+    from: REACT_APP_FROM_ADDRESS
+  }
+)
+
 // if deploying remix on rinkeby
-const drizzleOptions = { contracts: [{
-  contractName: 'StringStore',
-  web3Contract: new web3.eth.Contract(
-    StringStore.abi,
-    REACT_APP_CONTRACT_ADDRESS,
-    {
-      from: REACT_APP_FROM_ADDRESS
-    }
-  )
-}] };
+const drizzleOptions = {
+  contracts: [{
+    contractName: 'StringStore',
+    web3Contract
+  }]
+};
 
 const store = initializeStore()
 
