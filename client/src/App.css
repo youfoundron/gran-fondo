@@ -39,6 +39,7 @@
 body, html {
   height: 100%;
   font-size: 15px;
+  line-height: 21px;
   /* letter-spacing: -0.1px; */
   font-family: 'Metropolis Regular';
   -webkit-font-smoothing: antialiased;

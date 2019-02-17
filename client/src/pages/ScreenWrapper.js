@@ -1,12 +1,12 @@
 import React from 'react'
-import { withTheme } from 'styled-components'
+import { withRouter } from 'react-router-dom'
 import AppHeader from '../components/ui/AppHeader'
 
-const ScreenWrapper = ({ theme, children }) => (
+const ScreenWrapper = ({ history, children }) => (
   <div flexDirection='column' style={{ height: '100%' }}>
-    <AppHeader />
+    <AppHeader history={history} />
     <div style={{ flex: 1 }}>{children}</div>
   </div>
 )
 
-export default withTheme(ScreenWrapper)
+export default withRouter(ScreenWrapper)

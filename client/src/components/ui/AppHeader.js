@@ -1,9 +1,10 @@
 import React from 'react'
-import { Flex, Box, Button } from 'rebass'
+import { Flex, Box } from 'rebass'
 import styled, { withTheme } from 'styled-components'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { shadeColor, hexToRGB } from '../../lib/helpers'
+import Button from '../../components/ui/Button'
 
 import Logo from '../../assets/images/logo.jpg'
 
@@ -25,11 +26,12 @@ const MenuLink = ({ to, text }) => (
   </Box>
 )
 
-const AppHeader = ({ theme, loggedIn }) => (
+const AppHeader = ({ theme, history, loggedIn }) => (
   <div
     style={{
       position: 'sticky',
       top: 0,
+      zIndex: 10,
       display: 'flex',
       justifyContent: 'center',
       backgroundColor: hexToRGB(theme.colors.lightYellow, 0.95),
@@ -37,7 +39,7 @@ const AppHeader = ({ theme, loggedIn }) => (
     }}
   >
     <Flex
-      p={16}
+      p={theme.uiGlobal.appHeaderLogoMargin}
       alignItems='center'
       justifyContent='space-between'
       px={theme.uiGlobal.appLayoutMargin}
@@ -51,7 +53,7 @@ const AppHeader = ({ theme, loggedIn }) => (
             src={Logo}
             alt={Logo}
             style={{
-              height: '50px',
+              height: `${theme.uiGlobal.appHeaderLogoHeight}px`,
               width: 'auto'
             }}
           />
@@ -65,7 +67,14 @@ const AppHeader = ({ theme, loggedIn }) => (
       </Flex>
       {loggedIn && (
         <Box>
-          <Button bg='blue'>New Challenge</Button>
+          <Button
+            type='secondary'
+            isRounded
+            onClick={() => history.push('/create')}
+            style={{ padding: `${theme.space[4]}px ${theme.space[5]}px` }}
+          >
+            New Challenge
+          </Button>
         </Box>
       )}
     </Flex>

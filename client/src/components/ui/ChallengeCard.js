@@ -50,7 +50,7 @@ const ChallengeCard = ({
             <Badge text={exerciseType} color={theme.colors[exerciseType]} />
           </Box>
           <Box>
-            <Fee fee={50} fontSize={[5]} />
+            <Fee fee={fee} fontSize={[5]} />
           </Box>
         </Flex>
       </Box>
@@ -63,6 +63,7 @@ ChallengeCard.defaultProps = {
   image: '',
   challengeType: '',
   title: '',
+  fee: '',
   exerciseType: '', // one of exerciseTypes constant
   isHorizontal: false,
   children: null
