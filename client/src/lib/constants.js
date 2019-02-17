@@ -1,7 +1,7 @@
 export const exerciseType = {
-  SWIM: 'Swim',
   BIKE: 'Bike',
-  RUN: 'Run'
+  RUN: 'Run',
+  SWIM: 'Swim'
 }
 
 export const challengeType = {
