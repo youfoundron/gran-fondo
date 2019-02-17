@@ -16,18 +16,22 @@ const InputBox = styled.input`
 
 const Input = ({ theme, type, title, image }) => (
   <Flex
-    alignItems='center'
+    alignItems='flex-end'
     style={{
       borderBottom: '1px solid #ddd'
     }}
   >
-    <Label>{title}</Label>
+    <Box style={{ marginBottom: '5px' }}>
+      <Label>{title}</Label>
+    </Box>
     <Box flex={1} mx={3}>
       <InputBox
         type={type}
         style={{
-          fontSize: '14px',
+          fontSize: '16px',
           outline: 'none',
+          color: '#666',
+          fontFamily: 'Metropolis Regular',
           backgroundColor: 'transparent'
         }}
       />

@@ -20,6 +20,7 @@ const Header = ({
     style={{
       textAlign: 'left',
       fontFamily,
+      letterSpacing: '0.8px',
       ...(hasBottomBorder
         ? {
           width: 'auto',

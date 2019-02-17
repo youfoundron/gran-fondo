@@ -33,7 +33,7 @@ const HeaderTitleBox = ({ theme, title, alignment, style }) => {
           borderBottom: `4px solid ${theme.colors.lightYellow}`
         }}
       >
-        <Header pb={4} fontFamily='Metropolis Regular' fontSize={5}>
+        <Header pb={4} fontFamily='Metropolis Thin' fontSize={5}>
           {title}
         </Header>
       </Box>

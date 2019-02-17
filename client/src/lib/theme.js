@@ -25,6 +25,8 @@ export default {
   },
   uiGlobal: {
     appLayoutMargin: 40,
+    appHeaderLogoHeight: 50,
+    appHeaderLogoMargin: 16,
     appBackground: '#F7F7F7',
     borderRadius: 7,
     boxShadow: '0 4px 14px rgba(0, 0, 0, 0.05)'

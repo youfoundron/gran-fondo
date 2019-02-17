@@ -29,8 +29,12 @@ class App extends Component {
               path='/createForm/:type(segment|distance)'
               component={CreateChallengeForm}
             />
-            <PrivateRoute
+            {/* <PrivateRoute
               path='/:type(segment|distance)/:challengeId'
+              component={ChallengeDetails}
+            /> */}
+            <PrivateRoute
+              path='/challengeDetails'
               component={ChallengeDetails}
             />
           </Switch>
