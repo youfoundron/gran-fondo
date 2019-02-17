@@ -5,7 +5,13 @@ import ChallengeCard from './ChallengeCard'
 
 import map from '../../assets/images/map.jpg'
 
-const ChallengeCardGroup = ({ theme, challenges, columns, isHorizontal }) => {
+const ChallengeCardGroup = ({
+  theme,
+  challenges,
+  columns,
+  isHorizontal,
+  hasJoinButton
+}) => {
   let columnWidth
   switch (columns) {
     case 3:
@@ -34,6 +40,7 @@ const ChallengeCardGroup = ({ theme, challenges, columns, isHorizontal }) => {
             exerciseType={c.exerciseType}
             fee={c.fee}
             isHorizontal={isHorizontal}
+            hasJoinButton
           />
         </Box>
       ))}
@@ -45,7 +52,8 @@ ChallengeCardGroup.defaultProps = {
   theme: {},
   challenges: '',
   columns: 1,
-  isHorizontal: false
+  isHorizontal: false,
+  hasJoinButton: false
 }
 
 export default withTheme(ChallengeCardGroup)

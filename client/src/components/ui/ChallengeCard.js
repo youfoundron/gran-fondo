@@ -1,18 +1,14 @@
 import React from 'react'
 import { Flex, Box } from 'rebass'
-import styled, { withTheme } from 'styled-components'
+import { withTheme } from 'styled-components'
 import Card from './Card'
 import Label from './Label'
 import Header from './Header'
 import Badge from './Badge'
 import Fee from './Fee'
+import Button from './Button'
 
 import map from '../../assets/images/map.jpg'
-
-const Map = styled.img`
-  width: 100%;
-  height: auto;
-`
 
 const ChallengeCard = ({
   theme,
@@ -22,6 +18,7 @@ const ChallengeCard = ({
   exerciseType,
   isHorizontal,
   fee,
+  hasJoinButton,
   ...props
 }) => (
   <Card {...props}>
@@ -35,16 +32,39 @@ const ChallengeCard = ({
             : `${theme.uiGlobal.borderRadius}px ${
               theme.uiGlobal.borderRadius
             }px 0 0 `,
-          width: '200px',
+          ...(isHorizontal
+            ? { width: '200px' }
+            : { height: '200px', width: '100%' }),
           backgroundImage: `url(${image || map})`,
           backgroundSize: 'cover'
         }}
       />
-      <Box p={[20]} flex={1}>
-        <Label color={theme.colors.grayLightest}>
-          {challengeType} Challenge
-        </Label>
-        <Header my={[3]}>{title}</Header>
+      <Flex
+        p={[20]}
+        flex={1}
+        style={{ minHeight: '180px' }}
+        flexDirection='column'
+        justifyContent='space-between'
+      >
+        <Flex justifyContent='space-between'>
+          <Box pr={2}>
+            <Label color={theme.colors.grayLightest}>
+              {challengeType} Challenge
+            </Label>
+            <Header mt={2}>{title}</Header>
+          </Box>
+          {hasJoinButton && (
+            <Box>
+              <Button
+                onClick={() => null}
+                type='primary'
+                style={{ padding: theme.space[2] }}
+              >
+                Join
+              </Button>
+            </Box>
+          )}
+        </Flex>
         <Flex justifyContent='space-between'>
           <Box>
             <Badge text={exerciseType} color={theme.colors[exerciseType]} />
@@ -53,7 +73,7 @@ const ChallengeCard = ({
             <Fee fee={fee} fontSize={[5]} />
           </Box>
         </Flex>
-      </Box>
+      </Flex>
     </Flex>
   </Card>
 )
@@ -66,7 +86,8 @@ ChallengeCard.defaultProps = {
   fee: '',
   exerciseType: '', // one of exerciseTypes constant
   isHorizontal: false,
-  children: null
+  children: null,
+  hasJoinButton: false
 }
 
 export default withTheme(ChallengeCard)

@@ -3,10 +3,10 @@ import { Flex, Box } from 'rebass'
 import styled, { withTheme } from 'styled-components'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { shadeColor, hexToRGB } from '../../lib/helpers'
+import { shadeColor } from '../../lib/helpers'
 import Button from '../../components/ui/Button'
 
-import Logo from '../../assets/images/logo.jpg'
+import Logo from '../../assets/images/gran-fondo-logo.png'
 
 const LinkStyled = styled(Link)`
   color: ${({ theme }) => theme.colors.grayDarker};
@@ -34,7 +34,7 @@ const AppHeader = ({ theme, history, loggedIn }) => (
       zIndex: 100,
       display: 'flex',
       justifyContent: 'center',
-      backgroundColor: hexToRGB(theme.colors.lightYellow, 0.95),
+      backgroundColor: theme.colors.lightYellow,
       boxShadow: '0px 10px 24px rgba(0,0,0,0.05)'
     }}
   >

@@ -26,20 +26,24 @@ const Login = ({ theme, loggedIn, loginUser }) =>
     <Redirect to='/' />
   ) : (
     <ScreenWrapper>
-      <Flex style={{ flex: 1, height: '100%', width: '100%' }}>
+      <Flex style={{ flex: 1, width: '100%' }}>
         <Box flex={1}>
           <HeaderTitleBox title='Login to get started' />
           <Box py={50} px={`${theme.uiGlobal.appLayoutMargin}px`}>
             <Box mb={4}>
               <Label>Popular Challenges</Label>
             </Box>
-            <ChallengeCardGroup challenges={POPULAR_CHALLENGES} isHorizontal />
+            <ChallengeCardGroup
+              challenges={POPULAR_CHALLENGES}
+              isHorizontal
+              hasJoinButton
+            />
           </Box>
         </Box>
         <Box
           width='40%'
           style={{
-            backgroundPosition: 'center',
+            backgroundPosition: 'top center',
             backgroundImage: `url(${stravaImage})`,
             backgroundRepeat: 'no-repeat',
             backgroundColor: theme.colors.darkBlue

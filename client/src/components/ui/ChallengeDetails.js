@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex, Box } from 'rebass'
+import { Flex, Box, Text } from 'rebass'
 import { withRouter } from 'react-router-dom'
 import { withTheme } from 'styled-components'
 import Label from './Label'
@@ -7,13 +7,26 @@ import Header from './Header'
 import Fee from './Fee'
 import Button from './Button'
 import Badge from './Badge'
+import { convertFeetToMiles } from '../../lib/helpers'
 
 import map from '../../assets/images/map.jpg'
 
-const LabelWrap = ({ children }) => (
-  <Box mb={1}>
-    <Label>{children}</Label>
+const LabelAndText = ({ label, text }) => (
+  <Box mb={6} style={{ width: '49%' }}>
+    <Box mb={1}>
+      <Label>{label}</Label>
+    </Box>
+    <Text>{text}</Text>
   </Box>
+)
+
+const Divider = ({ theme }) => (
+  <div
+    style={{
+      margin: `${theme.space[6]}px 0px`,
+      borderBottom: '1px solid #ccc'
+    }}
+  />
 )
 
 const ChallengeDetails = ({
@@ -29,6 +42,7 @@ const ChallengeDetails = ({
   description,
   isSubmitButtonActive,
   isSubmitButtonVisible,
+  isViewingExistingChallenge,
   onClick
 }) => (
   <Flex flexDirection='column' style={{ height: '100%' }}>
@@ -75,12 +89,35 @@ const ChallengeDetails = ({
             margin: `${theme.space[5]}px ${theme.uiGlobal.appLayoutMargin}px`
           }}
         >
-          <LabelWrap>Description</LabelWrap>
-          {description}
-          <p>----------------</p>
-          <Badge text={exerciseType} color={theme.colors[exerciseType]} />
-          <p>distance: {distance}</p>
-          <p>expirationDate: {expirationDate}</p>
+          <Box mb={6}>
+            <Box mb={1}>
+              <Label>Description</Label>
+            </Box>
+            <Text>{description}</Text>
+          </Box>
+
+          <Divider theme={theme} />
+
+          <div style={{ marginBottom: theme.space[6] }}>
+            <Badge text={exerciseType} color={theme.colors[exerciseType]} />
+          </div>
+
+          <Flex flexDirection='row' flexWrap='wrap'>
+            <LabelAndText
+              label='Distance'
+              text={`${convertFeetToMiles(distance).toFixed(2)} miles`}
+            />
+            <LabelAndText label='Expiration Date' text={expirationDate} />
+            {isViewingExistingChallenge && (
+              <React.Fragment>
+                <LabelAndText label='Average Grade' text='5.7' />
+                <LabelAndText label='Maximum Grade' text='14.2' />
+                <LabelAndText label='Total Elevation Gain' text='155.733' />
+                <LabelAndText label='Athlete Count' text='3600' />
+                <LabelAndText label='Star Count' text='76' />
+              </React.Fragment>
+            )}
+          </Flex>
         </div>
       </Box>
     </div>
@@ -116,7 +153,8 @@ ChallengeDetails.defaultProps = {
   distance: '',
   fee: '',
   isSubmitButtonActive: false,
-  isSubmitButtonVisible: true
+  isSubmitButtonVisible: true,
+  isViewingExistingChallenge: false
 }
 
 export default withRouter(withTheme(ChallengeDetails))

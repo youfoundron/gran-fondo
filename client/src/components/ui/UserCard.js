@@ -4,10 +4,9 @@ import { withTheme } from 'styled-components'
 import Card from './Card'
 import Header from './Header'
 
-import userImage from '../../assets/images/girlie.jpg'
 import icon from '../../assets/images/icon-marker.jpg'
 
-const UserCard = ({ theme, name, location }) => (
+const UserCard = ({ theme, name, location, image }) => (
   <Card>
     <Flex>
       <Box
@@ -18,7 +17,7 @@ const UserCard = ({ theme, name, location }) => (
           }px`,
           backgroundPosition: 'center',
           backgroundSize: 'cover',
-          backgroundImage: `url(${userImage})`,
+          backgroundImage: `url(${image})`,
           backgroundRepeat: 'no-repeat'
         }}
       />
@@ -47,7 +46,8 @@ const UserCard = ({ theme, name, location }) => (
 
 UserCard.defaultProps = {
   name: '',
-  location: ''
+  location: '',
+  image: ''
 }
 
 export default withTheme(UserCard)

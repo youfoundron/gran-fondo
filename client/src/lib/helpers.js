@@ -36,3 +36,7 @@ export function hexToRGB (hex, alpha) {
 export function capitalizeFirstLetter (string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
 }
+
+export function convertFeetToMiles (feet) {
+  return feet / 5280
+}
