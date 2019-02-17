@@ -47,13 +47,12 @@ const CreateChallengeSelectType = ({ theme, history }) => (
     <HeaderTitleBox
       title='Create a New Challenge'
       alignment='center'
-      style={{ paddingTop: '100px' }}
+      style={{ paddingTop: theme.space[8] }}
     />
     <Flex
-      py={8}
+      py={9}
       style={{
         flex: 1,
-        height: '100%',
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center'
@@ -68,7 +67,7 @@ const CreateChallengeSelectType = ({ theme, history }) => (
         theme={theme}
         history={history}
       />
-      <Box mx={4}>
+      <Box mx={6}>
         <Header>OR</Header>
       </Box>
       <CreateBox

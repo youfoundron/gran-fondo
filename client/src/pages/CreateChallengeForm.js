@@ -13,17 +13,23 @@ class CreateChallengeForm extends React.Component {
     super()
 
     this.state = {
+      // exerciseType: '',
+      // name: '',
+      // description: '',
+      // expirationDate: '',
+      // distance: '',
+      // fee: ''
       exerciseType: 'Swim',
       name: 'Some cool name for an event',
       description:
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure laudantium, quod quos tempora rem non quia quibusdam est reiciendis, cupiditate commodi sint praesentium consequatur. Ad quae odit quas iusto harum!',
+        'Uhuh Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure laudantium, quod quos tempora rem non quia quibusdam est reiciendis, cupiditate commodi sint praesentium consequatur. Ad quae odit quas iusto harum!',
       expirationDate: '1552885345',
       distance: '105600',
       fee: '120'
     }
   }
 
-  onSelectInput = (input, e) =>
+  onChangeInput = (input, e) =>
     this.setState({ [input]: e.currentTarget.value })
 
   render () {
@@ -32,14 +38,24 @@ class CreateChallengeForm extends React.Component {
 
     const exerciseTypes = Object.values(exerciseType)
     const challengeType = capitalizeFirstLetter(type)
+    const formFieldValues = Object.values(this.state)
+    const areAnyFormFieldsEmpty = formFieldValues.includes('')
 
     return (
       <ScreenWrapper>
         <Flex style={{ flex: 1, height: '100%', width: '100%' }}>
-          <Box flex={1} style={{ backgroundColor: '#fff' }}>
+          <Box
+            flex={1}
+            style={{
+              position: 'relative',
+              zIndex: 3,
+              height: '100%',
+              backgroundColor: '#fff'
+            }}
+          >
             <HeaderTitleBox title={`Create A ${challengeType} Challenge`} />
             <Box py={50} px={`${theme.uiGlobal.appLayoutMargin}px`}>
-              <Box my={6}>
+              <Box my={4}>
                 {exerciseTypes.map((t, index) => (
                   <label
                     key={index}
@@ -53,7 +69,7 @@ class CreateChallengeForm extends React.Component {
                       name={t}
                       value={t}
                       checked={this.state.exerciseType === t}
-                      onChange={e => this.onSelectInput('exerciseType', e)}
+                      onChange={e => this.onChangeInput('exerciseType', e)}
                       style={{ marginRight: '5px' }}
                     />
                     {t}
@@ -64,41 +80,59 @@ class CreateChallengeForm extends React.Component {
                 <Input
                   type='text'
                   title='Name'
-                  onChange={e => this.onSelectInput('name', e)}
+                  value={this.state.name}
+                  onChange={e => this.onChangeInput('name', e)}
                 />
               </Box>
               <Box my={6}>
                 <Input
                   type='text'
                   title='Description'
-                  onChange={e => this.onSelectInput('description', e)}
+                  value={this.state.description}
+                  onChange={e => this.onChangeInput('description', e)}
                 />
               </Box>
               <Box my={6}>
                 <Input
                   type='text'
                   title='Expiration Date/Time'
-                  onChange={e => this.onSelectInput('expirationDate', e)}
+                  value={this.state.expirationDate}
+                  onChange={e => this.onChangeInput('expirationDate', e)}
                 />
               </Box>
               <Box my={6}>
                 <Input
                   type='text'
                   title='Distance'
-                  onChange={e => this.onSelectInput('distance', e)}
+                  value={this.state.distance}
+                  onChange={e => this.onChangeInput('distance', e)}
                 />
               </Box>
               <Box my={6}>
                 <Input
                   type='text'
                   title='Entry Fee $'
-                  onChange={e => this.onSelectInput('fee', e)}
+                  value={this.state.fee}
+                  onChange={e => this.onChangeInput('fee', e)}
                 />
               </Box>
             </Box>
           </Box>
           <Box flex={1}>
-            <ChallengeDetails exerciseType={this.state.exerciseType} />
+            <ChallengeDetails
+              exerciseType={
+                this.state.exerciseType || 'Select an exercise type'
+              }
+              challengeType={challengeType}
+              name={this.state.name || 'Name the challenge'}
+              description={
+                this.state.description || 'Add a description for this challenge'
+              }
+              expirationDate={this.state.expirationDate || ''}
+              distance={this.state.distance || 'Add a distance'}
+              fee={this.state.fee || '0'}
+              isSubmitButtonActive={areAnyFormFieldsEmpty}
+            />
           </Box>
         </Flex>
       </ScreenWrapper>
