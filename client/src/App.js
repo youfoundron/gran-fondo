@@ -9,6 +9,7 @@ import User from './pages/User'
 import CreateChallengeSelectType from './pages/CreateChallengeSelectType'
 import CreateChallengeForm from './pages/CreateChallengeForm'
 import ChallengeDetails from './pages/ChallengeDetails'
+import ChallengeSingle from './pages/ChallengeSingle'
 import './App.css'
 
 class App extends Component {
@@ -37,6 +38,7 @@ class App extends Component {
               path='/challengeDetails'
               component={ChallengeDetails}
             />
+            <PrivateRoute path='/challengeSingle' component={ChallengeSingle} />
           </Switch>
         </Layout>
       </Router>

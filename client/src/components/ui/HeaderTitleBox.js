@@ -22,6 +22,7 @@ const HeaderTitleBox = ({ theme, title, alignment, style }) => {
       style={{
         paddingTop: '50px',
         paddingLeft: `${theme.uiGlobal.appLayoutMargin}px`,
+        paddingRight: `${theme.uiGlobal.appLayoutMargin}px`,
         backgroundColor: '#fff',
         justifyContent,
         ...style

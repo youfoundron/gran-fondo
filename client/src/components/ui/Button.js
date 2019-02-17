@@ -11,6 +11,8 @@ const ButtonStyled = styled(RButton)`
   line-height: 1rem;
   box-shadow: ${({ theme }) => theme.uiGlobal.boxShadow};
   outline: none;
+  opacity: ${p => (p.disabled ? 0.5 : 1)}
+  pointer-events: ${p => (p.disabled ? 'none' : 'auto')}
   transition: all 0.25s ease;
 
   ${p => {
@@ -44,6 +46,7 @@ const Button = ({
   onClick,
   isRounded,
   fontSize,
+  disabled,
   style
 }) => (
   <ButtonStyled
@@ -51,6 +54,7 @@ const Button = ({
     style={style}
     onClick={onClick}
     fontSize={fontSize}
+    disabled={disabled}
     borderRadius={isRounded ? '100px' : '6px'}
   >
     {children}
@@ -63,6 +67,7 @@ Button.defaultProps = {
   onClick: '',
   isRounded: false,
   fontSize: 14,
+  disabled: false,
   style: {}
 }
 

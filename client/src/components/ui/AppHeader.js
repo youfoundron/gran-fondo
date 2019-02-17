@@ -31,7 +31,7 @@ const AppHeader = ({ theme, history, loggedIn }) => (
     style={{
       position: 'sticky',
       top: 0,
-      zIndex: 10,
+      zIndex: 100,
       display: 'flex',
       justifyContent: 'center',
       backgroundColor: hexToRGB(theme.colors.lightYellow, 0.95),
@@ -53,6 +53,7 @@ const AppHeader = ({ theme, history, loggedIn }) => (
             src={Logo}
             alt={Logo}
             style={{
+              float: 'left',
               height: `${theme.uiGlobal.appHeaderLogoHeight}px`,
               width: 'auto'
             }}

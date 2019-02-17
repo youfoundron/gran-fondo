@@ -55,7 +55,8 @@ const Input = ({ theme, type, title, image, value, onChange, handleBlur }) => (
 Input.defaultProps = {
   type: 'text',
   title: '',
-  image: ''
+  image: '',
+  onChange: null
 }
 
 export default withTheme(Input)

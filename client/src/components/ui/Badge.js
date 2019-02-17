@@ -4,16 +4,22 @@ import { withTheme } from 'styled-components'
 
 const Badge = ({ theme, text, color }) => (
   <div
-    width='auto'
     style={{
+      display: 'inline-block',
+      width: 'auto',
       borderRadius: '3px',
-      padding: '3px 4px',
+      padding: '4px 6px',
       textTransform: 'uppercase',
       fontFamily: 'Metropolis Semi Bold',
       backgroundColor: color || theme.colors.grayDarkest
     }}
   >
-    <Text color='#fff' fontSize={[1]} fontWeight='bold'>
+    <Text
+      color='#fff'
+      fontSize={1}
+      fontWeight='bold'
+      style={{ lineHeight: '1rem' }}
+    >
       {text}
     </Text>
   </div>
