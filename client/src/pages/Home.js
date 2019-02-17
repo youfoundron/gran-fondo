@@ -1,9 +1,11 @@
 import React from 'react'
+import { compose } from 'redux'
 import { Flex, Box, Text } from 'rebass'
 import { withTheme } from 'styled-components'
 import ScreenWrapper from './ScreenWrapper'
 import ChallengeCardGroup from '../components/ui/ChallengeCardGroup'
 import Label from '../components/ui/Label'
+import withChallenges from '../components/contractDataProviders/withChallenges'
 import { exerciseType, challengeType } from '../lib/constants'
 
 import { POPULAR_CHALLENGES } from '../lib/dummyData'
@@ -49,9 +51,11 @@ class Home extends React.Component {
   }
 
   render () {
-    const { theme } = this.props
+    const { theme, segmentChallenges, distanceChallenges } = this.props
     const exerciseTypes = Object.values(exerciseType)
     const challengeTypes = Object.values(challengeType)
+
+    console.log({ segmentChallenges, distanceChallenges })
 
     // const popularChallengesFiltered =
     //   this.state.challengeFilter === SHOW_ALL
@@ -92,4 +96,7 @@ class Home extends React.Component {
   }
 }
 
-export default withTheme(Home)
+export default compose(
+  withTheme,
+  withChallenges
+)(Home)

@@ -72,3 +72,33 @@ export const POPULAR_CHALLENGES = [
     fee: 45
   }
 ]
+
+export const CHALLENGE_SINGLE = {
+  challengeType: challengeType.DISTANCE,
+  exerciseType: exerciseType.SWIM,
+  name: 'Some cool name for an event',
+  description:
+    'Uhuh Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iure laudantium, quod quos tempora rem non quia quibusdam est reiciendis, cupiditate commodi sint praesentium consequatur. Ad quae odit quas iusto harum!',
+  expirationDate: '1552885345',
+  distance: '105600',
+  fee: '120'
+}
+
+export const USERS = [
+  {
+    name: 'Haley Jackson',
+    location: 'San Francisco, CA'
+  },
+  {
+    name: 'Rodney Jones',
+    location: 'Los Gatos, CA'
+  },
+  {
+    name: 'Dale Arnold',
+    location: 'Sausalito, CA'
+  },
+  {
+    name: 'Becky Smith',
+    location: 'Oakland, CA'
+  }
+]
